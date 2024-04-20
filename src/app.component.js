@@ -15,7 +15,7 @@ import "./pages/sign-in/sign-in.component";
 import "./pages/sign-up/sign-up.component";
 
 // import "./components/toast/toast.component";
-// import "./components/input/input.component";
+import "./components/input/input.component";
 // import "./components/button/button.component";
 // import "./components/loader/loader.component";
 // import "./components/modal/modal.component";
