@@ -13,10 +13,10 @@ export class SignIn extends Component {
     super();
 
     this.state = {
-//       errors: {
-//         email: "",
-//       },
-//       isLoading: false,
+      errors: {
+        email: "",
+      },
+      isLoading: false,
     };
 
     this.template = template({
