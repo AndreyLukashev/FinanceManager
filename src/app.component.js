@@ -1,9 +1,8 @@
 import { Component } from "./core/Component";
 import template from "./app.template.hbs";
 import { ROUTES } from "./constants/routes";
-
-// import { authService } from "./services/Auth";
-// import { useToastNotification } from "./hooks/useToastNotification";
+import { authService } from "./services/Auth";
+import { useToastNotification } from "./hooks/useToastNotification";
 // import { useUserStore } from "./hooks/useUserStore";
 
 import "./core/Router";
@@ -34,34 +33,34 @@ export class App extends Component {
     };
   }
 
-//   toggleIsLoading = () => {
-//     this.setState({
-//       ...this.state,
-//       isLoading: !this.state.isLoading,
-//     });
-//   };
+  toggleIsLoading = () => {
+    this.setState({
+      ...this.state,
+      isLoading: !this.state.isLoading,
+    });
+  };
 
-//   initializeApp() {
-//     this.toggleIsLoading();
+  initializeApp() {
+    this.toggleIsLoading();
 //     const { setUser } = useUserStore();
-//     authService
-//       .authorizeUser()
-//       .then((user) => {
-//         if (user.uid) {
+    authService
+      .authorizeUser()
+      .then((user) => {
+        if (user.uid) {
 //           setUser({ ...user });
-//         }
-//       })
-//       .catch((error) => {
-//         useToastNotification({ message: error.message });
-//       })
-//       .finally(() => {
-//         this.toggleIsLoading();
-//       });
-//   }
+        }
+      })
+      .catch((error) => {
+        useToastNotification({ message: error.message });
+      })
+      .finally(() => {
+        this.toggleIsLoading();
+      });
+  }
 
-//   componentDidMount() {
-//     this.initializeApp();
-//   }
+  componentDidMount() {
+    this.initializeApp();
+  }
 }
 
 customElements.define("my-app", App);

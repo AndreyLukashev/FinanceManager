@@ -1,10 +1,8 @@
 import { Component } from "../../core/Component";
 import template from "./home.template.hbs";
 import { ROUTES } from "../../constants/routes";
-
-import "../../components/router-link/router-link.component";
-// import { store } from "../../store/Store";
-// import { useUserStore } from "../../hooks/useUserStore";
+import "../../components/router-link/router-link.component";;
+import { useUserStore } from "../../hooks/useUserStore";
 
 export class HomePage extends Component {
   constructor() {
@@ -30,22 +28,22 @@ export class HomePage extends Component {
     };
   }
 
-//   setLinks = () => {
-//     const { getUser } = useUserStore();
-//     if (getUser()) {
-//       this.setState({
-//         links: [
-//           {
-//             label: "Work Page",
-//             href: ROUTES.work,
-//           },
-//         ],
-//       });
-//     }
-//   };
+  setLinks = () => {
+    const { getUser } = useUserStore();
+    if (getUser()) {
+      this.setState({
+        links: [
+          {
+            label: "Work Page",
+            href: ROUTES.work,
+          },
+        ],
+      });
+    }
+  };
 
   componentDidMount() {
-    // this.setLinks();
+    this.setLinks();
   }
 }
 
