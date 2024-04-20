@@ -50,7 +50,7 @@ export class WorkPage extends Component {
   //   }
   // };
 
-  // openProfitModal() {
+  openProfitModal() {
   //   useModal({
   //     isOpen: true,
   //     template: 'ui-add-profit-form',
@@ -62,10 +62,10 @@ export class WorkPage extends Component {
   //       console.log('formData', formData);
   //     },
   //   })
-  //   }
+    }
 
 
-  // openExpenseModal() {
+  openExpenseModal() {
   //   useModal({
   //     isOpen: true,
   //     template: 'ui-add-expense-form',
@@ -92,7 +92,7 @@ export class WorkPage extends Component {
   //         });
   //     },
   //   })
-  // }
+  }
 
   logOut = () => {
     this.toggleIsLoading();
@@ -130,16 +130,16 @@ export class WorkPage extends Component {
     }
   }
 
-  // setUser() {
-  //   const { getUser } = useUserStore();
-  //   this.setState({
-  //     ...this.state,
-  //     user: getUser(),
-  //   });
-  // }
+  setUser() {
+    const { getUser } = useUserStore();
+    this.setState({
+      ...this.state,
+      user: getUser(),
+    });
+  }
 
   componentDidMount() {
-  //   this.setUser();
+    this.setUser();
     // this.loadAllBoards();
     this.addEventListener('click', this.onClick);
   }
