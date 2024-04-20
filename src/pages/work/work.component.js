@@ -1,7 +1,7 @@
 import { Component } from "../../core/Component";
 import template from "./work.template.hbs";
 // import { apiService } from "../../services/Api";
-// import { mapResponseApiData } from "../../utils/api";
+import { mapResponseApiData } from "../../utils/api";
 import { useUserStore } from "../../hooks/useUserStore";
 import { authService } from "../../services/Auth";
 import { useToastNotification } from "../../hooks/useToastNotification";
@@ -31,24 +31,24 @@ export class WorkPage extends Component {
     });
   };
 
-//   loadAllBoards = () => {
-//     if (this.state.user?.uid) {
-//       this.toggleIsLoading();
-//       getBoardsApi(this.state.user.uid)
-//         .then(({ data }) => { 
-//           this.setState({
-//             ...this.state,
-//             boards: data ? mapResponseApiData(data) : [],
-//           });
-//         })
-//         .catch(({ message }) => {
-//           useToastNotification({ message });
-  //       })
-  //       .finally(() => {
-  //         this.toggleIsLoading();
-  //       });
-  //   }
-  // };
+  loadAllBoards = () => {
+    if (this.state.user?.uid) {
+      this.toggleIsLoading();
+      getBoardsApi(this.state.user.uid)
+        .then(({ data }) => { 
+          this.setState({
+            ...this.state,
+            boards: data ? mapResponseApiData(data) : [],
+          });
+        })
+        .catch(({ message }) => {
+          useToastNotification({ message });
+        })
+        .finally(() => {
+          this.toggleIsLoading();
+        });
+    }
+  };
 
   openProfitModal() {
     useModal({
@@ -151,7 +151,7 @@ export class WorkPage extends Component {
 
   componentDidMount() {
     this.setUser();
-    // this.loadAllBoards();
+    this.loadAllBoards();
     this.addEventListener('click', this.onClick);
   }
 
