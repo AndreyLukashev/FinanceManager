@@ -12,6 +12,8 @@ import "./pages/not-found/not-found.component";
 import "./pages/work/work.component";
 import "./pages/sign-in/sign-in.component";
 import "./pages/sign-up/sign-up.component";
+import "./pages/profit/profit.component";
+import "./pages/expense/expense.component";
 
 import "./components/toast/toast.component";
 import "./components/input/input.component";

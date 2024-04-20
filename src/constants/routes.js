@@ -3,5 +3,7 @@ export const ROUTES = {
     signUp: "/sign-up",
     signIn: "/sign-in",
     work: "/work",
+    profit: "/profit",
+    expense: "/expense",
     notFound: "/404",
 }

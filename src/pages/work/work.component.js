@@ -11,7 +11,7 @@ import { ROUTES } from "../../constants/routes";
 // import { store } from "../../store/Store";
 import { useModal } from "../../hooks/useModal";
 import { extractFormData } from "../../utils/extractFormData";
-// import { createBoardApi, deleteBoardApi, getBoardsApi } from "../../api/boards";
+import { createBoardApi, deleteBoardApi, getBoardsApi } from "../../api/boards";
 
 export class WorkPage extends Component {
   constructor() {
@@ -58,6 +58,21 @@ export class WorkPage extends Component {
         const form = modal.querySelector(".create-profit-form");
         const formData = extractFormData(form);
         console.log(formData);
+        this.toggleIsLoading();
+        createBoardApi(this.state.user.uid, formData)
+          .then(({ data }) => {
+            useNavigate(`${ROUTES.profit}`);
+            useToastNotification({
+              message: "Success!",
+              type: TOAST_TYPE.success,
+            });
+          })
+          .catch(({ message }) => {
+            useToastNotification({ message });
+          })
+          .finally(() => {
+            this.toggleIsLoading();
+          });
       },
     })
   }
@@ -71,21 +86,21 @@ export class WorkPage extends Component {
         const form = modal.querySelector(".create-expense-form");
         const formData = extractFormData(form);
         console.log(formData);
-  //       this.toggleIsLoading();
-  //       createBoardApi(this.state.user.uid, formData)
-  //         .then(({ data }) => {
-            // useNavigate(`${ROUTES.board}/${data.name}`);
-  //           useToastNotification({
-  //             message: "Success!",
-  //             type: TOAST_TYPE.success,
-  //           });
-  //         })
-  //         .catch(({ message }) => {
-  //           useToastNotification({ message });
-  //         })
-  //         .finally(() => {
-  //           this.toggleIsLoading();
-  //         });
+        this.toggleIsLoading();
+        createBoardApi(this.state.user.uid, formData)
+          .then(({ data }) => {
+            useNavigate(`${ROUTES.expense}`);
+            useToastNotification({
+              message: "Success!",
+              type: TOAST_TYPE.success,
+            });
+          })
+          .catch(({ message }) => {
+            useToastNotification({ message });
+          })
+          .finally(() => {
+            this.toggleIsLoading();
+          });
       },
     })
   }
