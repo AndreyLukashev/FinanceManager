@@ -33,7 +33,7 @@ export class Modal extends Component {
   };
 
   onSuccess = () => {
-    // this.state.onSuccess(this);
+    this.state.onSuccess(this);
     this.closeModal();
   };
 

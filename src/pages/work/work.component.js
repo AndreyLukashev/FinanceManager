@@ -10,7 +10,7 @@ import { useNavigate } from "../../hooks/useNavigate";
 import { ROUTES } from "../../constants/routes";
 // import { store } from "../../store/Store";
 import { useModal } from "../../hooks/useModal";
-// import { extractFormData } from "../../utils/extractFormData";
+import { extractFormData } from "../../utils/extractFormData";
 // import { createBoardApi, deleteBoardApi, getBoardsApi } from "../../api/boards";
 
 export class WorkPage extends Component {
@@ -55,11 +55,9 @@ export class WorkPage extends Component {
       isOpen: true,
       template: 'ui-create-profit-form',
       onSuccess: (modal) => {
-        console.log("modal", modal);
-  //       const form = modal.querySelector(".create-profit-form");
-  //       console.log("form", form);
-  //       const formData = extractFormData(form);
-  //       console.log('formData', formData);
+        const form = modal.querySelector(".create-profit-form");
+        const formData = extractFormData(form);
+        console.log(formData);
       },
     })
   }
@@ -69,12 +67,10 @@ export class WorkPage extends Component {
     useModal({
       isOpen: true,
       template: 'ui-create-expense-form',
-  //     onSuccess: (modal) => {
-  //       console.log("modal", modal);
-  //       const form = modal.querySelector(".add-expense-form");
-  //       console.log("form", form);
-  //       const formData = extractFormData(form);
-  //       console.log('formData', formData);
+      onSuccess: (modal) => {
+        const form = modal.querySelector(".create-expense-form");
+        const formData = extractFormData(form);
+        console.log(formData);
   //       this.toggleIsLoading();
   //       createBoardApi(this.state.user.uid, formData)
   //         .then(({ data }) => {
@@ -90,7 +86,7 @@ export class WorkPage extends Component {
   //         .finally(() => {
   //           this.toggleIsLoading();
   //         });
-  //     },
+      },
     })
   }
 
@@ -114,8 +110,8 @@ export class WorkPage extends Component {
 
   onClick = ({target}) => {
     const logOut = target.closest('.logout');
-    const addProfit = target.closest('.add-profit');
-    const addExpense = target.closest('.add-expense');
+    const addProfit = target.closest('.create-profit');
+    const addExpense = target.closest('.create-expense');
 
     if(logOut){
       this.logOut();
