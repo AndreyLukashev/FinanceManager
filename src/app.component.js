@@ -3,7 +3,7 @@ import template from "./app.template.hbs";
 import { ROUTES } from "./constants/routes";
 import { authService } from "./services/Auth";
 import { useToastNotification } from "./hooks/useToastNotification";
-// import { useUserStore } from "./hooks/useUserStore";
+import { useUserStore } from "./hooks/useUserStore";
 
 import "./core/Router";
 
@@ -42,12 +42,12 @@ export class App extends Component {
 
   initializeApp() {
     this.toggleIsLoading();
-//     const { setUser } = useUserStore();
+    const { setUser } = useUserStore();
     authService
       .authorizeUser()
       .then((user) => {
         if (user.uid) {
-//           setUser({ ...user });
+          setUser({ ...user });
         }
       })
       .catch((error) => {
