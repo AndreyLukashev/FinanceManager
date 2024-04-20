@@ -17,7 +17,7 @@ import "./components/toast/toast.component";
 import "./components/input/input.component";
 import "./components/button/button.component";
 import "./components/loader/loader.component";
-// import "./components/modal/modal.component";
+import "./components/modal/modal.component";
 // import "./components/add-profit-form/add-profit-form.component";
 // import "./components/add-expense-form/add-expense-form.component";
 

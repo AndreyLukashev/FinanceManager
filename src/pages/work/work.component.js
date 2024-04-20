@@ -9,7 +9,7 @@ import { TOAST_TYPE } from "../../constants/toast";
 import { useNavigate } from "../../hooks/useNavigate";
 import { ROUTES } from "../../constants/routes";
 // import { store } from "../../store/Store";
-// import { useModal } from "../../hooks/useModal";
+import { useModal } from "../../hooks/useModal";
 // import { extractFormData } from "../../utils/extractFormData";
 // import { createBoardApi, deleteBoardApi, getBoardsApi } from "../../api/boards";
 
@@ -51,23 +51,23 @@ export class WorkPage extends Component {
   // };
 
   openProfitModal() {
-  //   useModal({
-  //     isOpen: true,
-  //     template: 'ui-add-profit-form',
-  //     onSuccess: (modal) => {
-  //       console.log("modal", modal);
+    useModal({
+      isOpen: true,
+      // template: 'ui-add-profit-form',
+      // onSuccess: (modal) => {
+      //   console.log("modal", modal);
   //       const form = modal.querySelector(".add-profit-form");
   //       console.log("form", form);
   //       const formData = extractFormData(form);
   //       console.log('formData', formData);
-  //     },
-  //   })
-    }
+      // },
+    })
+  }
 
 
   openExpenseModal() {
-  //   useModal({
-  //     isOpen: true,
+    useModal({
+      isOpen: true,
   //     template: 'ui-add-expense-form',
   //     onSuccess: (modal) => {
   //       console.log("modal", modal);
@@ -91,7 +91,7 @@ export class WorkPage extends Component {
   //           this.toggleIsLoading();
   //         });
   //     },
-  //   })
+    })
   }
 
   logOut = () => {
