@@ -1,6 +1,6 @@
 import { Component } from "./core/Component";
 import template from "./app.template.hbs";
-// import { ROUTES } from "./constants/routes";
+import { ROUTES } from "./constants/routes";
 
 // import { authService } from "./services/Auth";
 // import { useToastNotification } from "./hooks/useToastNotification";
@@ -27,10 +27,9 @@ import "./pages/sign-up/sign-up.component";
 export class App extends Component {
   constructor() {
     super();
-    this.template = template(
-    // {
-//         routes: ROUTES,
-//     }
+    this.template = template({
+        routes: ROUTES,
+    }
 );
     this.state = {
 //         isLoading: false,
