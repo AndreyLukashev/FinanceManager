@@ -28,34 +28,34 @@ export class Modal extends Component {
     }
   };
 
-//   closeModal = () => {
-//     this.setState(INITIAL_STATE);
-//   };
+  closeModal = () => {
+    this.setState(INITIAL_STATE);
+  };
 
-//   onSuccess = () => {
-//     this.state.onSuccess(this);
-//     this.closeModal();
-//   };
+  onSuccess = () => {
+    // this.state.onSuccess(this);
+    this.closeModal();
+  };
 
-//   onClick = (evt) => {
-//     if (evt.target.closest(".modal-reject-trigger")) {
-//       this.closeModal();
-//     }
-//     if (evt.target.closest(".modal-success-trigger")) {
-//       this.onSuccess();
-//     }
-//   };
+  onClick = (evt) => {
+    if (evt.target.closest(".modal-reject-trigger")) {
+      this.closeModal();
+    }
+    if (evt.target.closest(".modal-success-trigger")) {
+      this.onSuccess();
+    }
+  };
 
   componentDidMount() {
     eventEmitter.on(EVENT_TYPES.modal, this.modalHandler);
 // //     eventEmitter.on("form:error", this.validateForm);
-//     this.addEventListener("click", this.onClick);
+    this.addEventListener("click", this.onClick);
   }
 
   componentWillUnmount() {
     eventEmitter.off(EVENT_TYPES.modal, this.modalHandler);
 // //     eventEmitter.off("form:error", this.validateForm);
-//     this.removeEventListener("click", this.onClick);
+    this.removeEventListener("click", this.onClick);
   }
 }
 

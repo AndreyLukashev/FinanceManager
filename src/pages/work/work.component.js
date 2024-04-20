@@ -54,13 +54,13 @@ export class WorkPage extends Component {
     useModal({
       isOpen: true,
       template: 'ui-create-profit-form',
-      // onSuccess: (modal) => {
-      //   console.log("modal", modal);
-  //       const form = modal.querySelector(".add-profit-form");
+      onSuccess: (modal) => {
+        console.log("modal", modal);
+  //       const form = modal.querySelector(".create-profit-form");
   //       console.log("form", form);
   //       const formData = extractFormData(form);
   //       console.log('formData', formData);
-      // },
+      },
     })
   }
 
