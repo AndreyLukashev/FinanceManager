@@ -18,8 +18,8 @@ import "./components/input/input.component";
 import "./components/button/button.component";
 import "./components/loader/loader.component";
 import "./components/modal/modal.component";
-// import "./components/add-profit-form/add-profit-form.component";
-// import "./components/add-expense-form/add-expense-form.component";
+import "./components/create-profit-form/create-profit-form.component";
+import "./components/create-expense-form/create-expense-form.component";
 
 export class App extends Component {
   constructor() {

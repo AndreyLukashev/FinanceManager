@@ -12,10 +12,10 @@ export class Modal extends Component {
     this.state = INITIAL_STATE;
   }
 
-//   appendTemplate = (template) => {
-//     const tmp = document.createElement(template);
-//     this.querySelector(".modal-body").append(tmp);
-//   };
+  appendTemplate = (template) => {
+    const tmp = document.createElement(template);
+    this.querySelector(".modal-body").append(tmp);
+  };
 
   modalHandler = ({ detail }) => {
     this.setState({
@@ -23,9 +23,9 @@ export class Modal extends Component {
       ...detail,
     });
 
-//     if (detail.template) {
-//       this.appendTemplate(detail.template);
-//     }
+    if (detail.template) {
+      this.appendTemplate(detail.template);
+    }
   };
 
 //   closeModal = () => {

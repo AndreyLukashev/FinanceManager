@@ -53,7 +53,7 @@ export class WorkPage extends Component {
   openProfitModal() {
     useModal({
       isOpen: true,
-      // template: 'ui-add-profit-form',
+      template: 'ui-create-profit-form',
       // onSuccess: (modal) => {
       //   console.log("modal", modal);
   //       const form = modal.querySelector(".add-profit-form");
@@ -68,7 +68,7 @@ export class WorkPage extends Component {
   openExpenseModal() {
     useModal({
       isOpen: true,
-  //     template: 'ui-add-expense-form',
+      template: 'ui-create-expense-form',
   //     onSuccess: (modal) => {
   //       console.log("modal", modal);
   //       const form = modal.querySelector(".add-expense-form");
