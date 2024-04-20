@@ -1,1 +1,37 @@
-<h1>SIGN UP</h1>
+<div class="grid grid-cols-12 min-h-screen">
+  <div class="col-span-3 relative">
+    <ui-loader loading="{{isLoading}}" class-name="z-1 bg-white/70"></ui-loader>
+
+    <div class="px-5 mt-10">
+      <div class="flex items-center gap-2">
+        <img class="h-8 w-8" src="../../../public/wallet.svg" alt="">
+        <i class="icon-arrow-left text-indigo-500"></i>
+        <router-link
+          label="Back to Home Page"
+          class="text-indigo-500 text-sm"
+          href="${props.routes.home}"
+        ></router-link>
+      </div>
+      <div class="mt-16">
+        <h1 class="text-2xl">Sign up your account</h1>
+        <p class="text-slate-400 mt-3 text-sm">Already have an account?
+          <router-link
+            label="Sign In"
+            class="text-indigo-500"
+            href="${props.routes.signIn}"
+          ></router-link></p>
+        <form class="flex flex-col gap-3 sign-in-form mt-12">
+          <ui-input label="Email address" name="email" type="email"></ui-input>
+          <ui-input label="Password" type="password" name="password"></ui-input>
+          <ui-input
+            label="Password"
+            type="password"
+            name="repeat-password"
+          ></ui-input>
+          <ui-button caption="Sign Up" class-name="block w-full"></ui-button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-span-9 bg-workspace bg-cover"></div>
+</div>
