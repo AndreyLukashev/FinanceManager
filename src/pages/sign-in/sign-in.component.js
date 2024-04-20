@@ -1,11 +1,11 @@
 import { Component } from "../../core/Component";
 import template from "./sign-in.template.hbs";
 import { ROUTES } from "../../constants/routes";
-// import { extractFormData } from "../../utils/extractFormData";
-// import { authService } from "../../services/Auth";
-// import { useToastNotification } from "../../hooks/useToastNotification";
-// import { useNavigate } from "../../hooks/useNavigate";
-// import { TOAST_TYPE } from "../../constants/toast";
+import { extractFormData } from "../../utils/extractFormData";
+import { authService } from "../../services/Auth";
+import { useToastNotification } from "../../hooks/useToastNotification";
+import { useNavigate } from "../../hooks/useNavigate";
+import { TOAST_TYPE } from "../../constants/toast";
 // import { useUserStore } from "../../hooks/useUserStore";
 
 export class SignIn extends Component {
@@ -24,43 +24,43 @@ export class SignIn extends Component {
     });
   }
 
-//   toggleIsLoading = () => {
-//     this.setState({
-//       ...this.state,
-//       isLoading: !this.state.isLoading,
-//     });
-//   };
+  toggleIsLoading = () => {
+    this.setState({
+      ...this.state,
+      isLoading: !this.state.isLoading,
+    });
+  };
 
-//   signInUser = (evt) => {
-//     evt.preventDefault();
-//     const { setUser } = useUserStore();
-//     const formData = extractFormData(evt.target);
-//     this.toggleIsLoading();
-//     authService
-//       .signIn(formData.email, formData.password)
-//       .then((data) => {
-//         setUser({ ...data.user });
-//         useToastNotification({
-//           message: "Success!!!",
-//           type: TOAST_TYPE.success,
-//         });
-//         useNavigate(ROUTES.work);
-//       })
-//       .catch((error) => {
-//         useToastNotification({ message: error.message });
-//       })
-//       .finally(() => {
-//         this.toggleIsLoading();
-//       });
-//   };
+  signInUser = (evt) => {
+    evt.preventDefault();
+    // const { setUser } = useUserStore();
+    const formData = extractFormData(evt.target);
+    this.toggleIsLoading();
+    authService
+      .signIn(formData.email, formData.password)
+      .then((data) => {
+        // setUser({ ...data.user });
+        useToastNotification({
+          message: "Success!!!",
+          type: TOAST_TYPE.success,
+        });
+        useNavigate(ROUTES.work);
+      })
+      .catch((error) => {
+        useToastNotification({ message: error.message });
+      })
+      .finally(() => {
+        this.toggleIsLoading();
+      });
+  };
 
-//   componentDidMount() {
-//     this.addEventListener("submit", this.signInUser);
-//   }
+  componentDidMount() {
+    this.addEventListener("submit", this.signInUser);
+  }
 
-//   componentWillUnmount() {
-//     this.removeEventListener("submit", this.signInUser);
-//   }
+  componentWillUnmount() {
+    this.removeEventListener("submit", this.signInUser);
+  }
 }
 
 customElements.define("sign-in-page", SignIn);
