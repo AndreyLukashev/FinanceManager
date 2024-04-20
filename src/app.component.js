@@ -1,20 +1,18 @@
 import { Component } from "./core/Component";
-// import template from "./app.template.hbs";
+import template from "./app.template.hbs";
 // import { ROUTES } from "./constants/routes";
 
 // import { authService } from "./services/Auth";
 // import { useToastNotification } from "./hooks/useToastNotification";
 // import { useUserStore } from "./hooks/useUserStore";
 
-// import "./core/Router";
+import "./core/Router";
 
-// import "./pages/home/home.component";
-// import "./pages/not-found/not-found.component";
-// import "./pages/work/work.component";
-// // import "./pages/board/board.component";
-// // import "./pages/dashboard/dashboard.component";
-// import "./pages/sign-in/sign-in.component";
-// import "./pages/sign-up/sign-up.component";
+import "./pages/home/home.component";
+import "./pages/not-found/not-found.component";
+import "./pages/work/work.component";
+import "./pages/sign-in/sign-in.component";
+import "./pages/sign-up/sign-up.component";
 
 // import "./components/toast/toast.component";
 // import "./components/input/input.component";
