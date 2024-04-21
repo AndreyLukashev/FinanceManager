@@ -9,22 +9,16 @@ export class HomePage extends Component {
     super();
     this.template = template();
     this.state = {
-        link: [
-            {
-              label: "Try without sign in",
-              href: ROUTES.work,
-            }
-        ],
-        links: [
-            {
-              label: "Sign In",
-              href: ROUTES.signIn,
-            },
-            {
-              label: "Sign Up",
-              href: ROUTES.signUp,
-            },
-        ],
+      links: [
+        {
+          label: "Sign In",
+          href: ROUTES.signIn,
+        },
+        {
+          label: "Sign Up",
+          href: ROUTES.signUp,
+        },
+      ],
     };
   }
 

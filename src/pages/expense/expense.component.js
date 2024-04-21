@@ -35,29 +35,6 @@ export class ExpensePage extends Component {
     });
   }
 
-  onClick = ({target}) => {
-    const logOut = target.closest('.logout');
-    const workPage = target.closest('.work-page');
-    const profitPage = target.closest('.profit-page');
-    const addExpense = target.closest('.create-expense');
-
-    if(logOut){
-      this.logOut();
-    }
-
-    if(workPage){
-      useNavigate(`${ROUTES.work}`);
-    }
-
-    if(profitPage){
-      useNavigate(`${ROUTES.profit}`);
-    }
-    
-    if(addExpense){
-      this.openExpenseModal();
-    }
-  }
-
   openExpenseModal() {
     useModal({
       isOpen: true,
@@ -86,7 +63,29 @@ export class ExpensePage extends Component {
     })
   }
 
-  i
+  onClick = ({target}) => {
+    const logOut = target.closest('.logout');
+    const workPage = target.closest('.work-page');
+    const profitPage = target.closest('.profit-page');
+    const addExpense = target.closest('.create-expense');
+
+    if(logOut){
+      this.logOut();
+    }
+
+    if(workPage){
+      useNavigate(`${ROUTES.work}`);
+    }
+
+    if(profitPage){
+      useNavigate(`${ROUTES.profit}`);
+    }
+    
+    if(addExpense){
+      this.openExpenseModal();
+    }
+  }
+
   componentDidMount(){
     this.setUser();
     this.addEventListener('click', this.onClick);

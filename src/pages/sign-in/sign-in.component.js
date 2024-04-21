@@ -4,8 +4,8 @@ import { ROUTES } from "../../constants/routes";
 import { extractFormData } from "../../utils/extractFormData";
 import { authService } from "../../services/Auth";
 import { useToastNotification } from "../../hooks/useToastNotification";
-import { useNavigate } from "../../hooks/useNavigate";
 import { TOAST_TYPE } from "../../constants/toast";
+import { useNavigate } from "../../hooks/useNavigate";
 import { useUserStore } from "../../hooks/useUserStore";
 
 export class SignIn extends Component {

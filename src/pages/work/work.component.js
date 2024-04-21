@@ -17,6 +17,22 @@ export class WorkPage extends Component {
     };
   }
 
+  
+  toggleIsLoading = () => {
+    this.setState({
+      ...this.state,
+      isLoading: !this.state.isLoading,
+    });
+  };
+
+  setUser() {
+    const { getUser } = useUserStore();
+    this.setState({
+      ...this.state,
+      user: getUser(),
+    });
+  }
+
   logOut = () => {
     this.toggleIsLoading();
     const { setUser } = useUserStore();
@@ -52,24 +68,7 @@ export class WorkPage extends Component {
       useNavigate(`${ROUTES.expense}`);
     }
   }
-
- 
-
-  toggleIsLoading = () => {
-    this.setState({
-      ...this.state,
-      isLoading: !this.state.isLoading,
-    });
-  };
-
-  setUser() {
-    const { getUser } = useUserStore();
-    this.setState({
-      ...this.state,
-      user: getUser(),
-    });
-  }
-
+  
   componentDidMount() {
     this.setUser();
     this.addEventListener('click', this.onClick);

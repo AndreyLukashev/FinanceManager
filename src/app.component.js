@@ -28,8 +28,7 @@ export class App extends Component {
     super();
     this.template = template({
         routes: ROUTES,
-    }
-);
+    });
     this.state = {
         isLoading: false,
     };

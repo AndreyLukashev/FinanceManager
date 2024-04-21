@@ -54,29 +54,6 @@ export class ProfitPage extends Component {
       });
   }
 
-  onClick = ({target}) => {
-    const logOut = target.closest('.logout');
-    const workPage = target.closest('.work-page');
-    const expensePage = target.closest('.expense-page');
-    const addProfit = target.closest('.create-profit');
-
-    if(logOut){
-      this.logOut();
-    }
-
-    if(workPage){
-      useNavigate(`${ROUTES.work}`);
-    }
-
-    if(expensePage){
-      useNavigate(`${ROUTES.expense}`);
-    }
-
-    if(addProfit){
-      this.openProfitModal();
-    }
-  }
-
   openProfitModal() {
     useModal({
       isOpen: true,
@@ -102,6 +79,29 @@ export class ProfitPage extends Component {
           });
       },
     })
+  }
+
+  onClick = ({target}) => {
+    const logOut = target.closest('.logout');
+    const workPage = target.closest('.work-page');
+    const expensePage = target.closest('.expense-page');
+    const addProfit = target.closest('.create-profit');
+
+    if(logOut){
+      this.logOut();
+    }
+
+    if(workPage){
+      useNavigate(`${ROUTES.work}`);
+    }
+
+    if(expensePage){
+      useNavigate(`${ROUTES.expense}`);
+    }
+
+    if(addProfit){
+      this.openProfitModal();
+    }
   }
 
   componentDidMount() {
