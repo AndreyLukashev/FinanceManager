@@ -1,20 +1,4 @@
-<div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Добавить расход</h3>
-    <button type="button" class="modal-reject-trigger text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-lg w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="default-modal">
-        <div class="icon-circle-x"></div>
-    </button>
-</div>
 <form class="create-expense-form flex flex-col gap-3">
-  <label class="w-full">
-    <p class="text-sm text-black">Название</p>
-    <input type="text" name="title" class="p-2 w-full border rounded" />
-  </label>
-
-  <label class="w-full">
-    <p class="text-sm text-black">Сумма</p>
-    <input type="number" name="sum" class="p-2 w-full border rounded" />
-  </label>
-
   <label class="w-full">
     <p class="text-sm text-black">Категория</p>
     <select name="category" class="p-2 w-full border rounded">
@@ -28,7 +12,12 @@
     </select>
   </label>
 
-<label class="w-full">
+  <label class="w-full">
+    <p class="text-sm text-black">Сумма</p>
+    <input type="number" name="sum" class="p-2 w-full border rounded" />
+  </label>
+
+  <label class="w-full">
     <p class="text-sm text-black">Дата</p>
     <input type="date" name="date" class="p-2 w-full border rounded" />
   </label>

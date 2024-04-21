@@ -1,5 +1,6 @@
 export const INITIAL_STATE = {
     isOpen: false,
+    title: "",
     successCaption: "Success",
     rejectCaption: "Cancel",
     template: null,

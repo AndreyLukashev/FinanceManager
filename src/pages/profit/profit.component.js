@@ -59,6 +59,7 @@ export class ProfitPage extends Component {
   openProfitModal() {
     useModal({
       isOpen: true,
+      title: "Добавить доход",
       template: 'ui-create-profit-form',
       onSuccess: (modal) => {
         const form = modal.querySelector(".create-profit-form");

@@ -62,11 +62,11 @@ export class ExpensePage extends Component {
   openExpenseModal() {
     useModal({
       isOpen: true,
+      title: "Добавить расход",
       template: 'ui-create-expense-form',
       onSuccess: (modal) => {
         const form = modal.querySelector(".create-expense-form");
         const formData = extractFormData(form);
-        console.log(formData);
         this.toggleIsLoading();
         createBoardApi(this.state.user.uid, formData)
           .then(({ data }) => {
@@ -107,7 +107,6 @@ export class ExpensePage extends Component {
   // };
 
   componentDidMount(){
-    console.log('expense');
     this.setUser();
     this.addEventListener('click', this.onClick);
     // this.loadAllBoards();
