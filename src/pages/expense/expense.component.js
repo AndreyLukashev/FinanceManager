@@ -15,10 +15,9 @@ export class ExpensePage extends Component {
     super();
     this.template = template();
     this.state = {
+      boardId: null,
       isLoading: false,
-      // user: null,
-      // boards: [],
-  }
+    }
 }
 
   toggleIsLoading = () => {
@@ -87,29 +86,10 @@ export class ExpensePage extends Component {
     })
   }
 
-  // loadAllBoards = () => {
-    // if (this.state.user?.uid) {
-  //     this.toggleIsLoading();
-  //     getBoardsApi(this.state.user.uid)
-  //       .then(({ data }) => { 
-  //         this.setState({
-  //           ...this.state,
-  //           boards: data ? mapResponseApiData(data) : [],
-  //         });
-  //       })
-  //       .catch(({ message }) => {
-  //         useToastNotification({ message });
-  //       })
-  //       .finally(() => {
-  //         this.toggleIsLoading();
-  //       });
-  //   // }
-  // };
-
+  i
   componentDidMount(){
     this.setUser();
     this.addEventListener('click', this.onClick);
-    // this.loadAllBoards();
   }
 
   componentWillUnmount() {

@@ -16,7 +16,6 @@ export class NotFound extends Component {
     if(homePage){
       useNavigate(`${ROUTES.home}`);
     }
-
   }
 
   componentDidMount() {

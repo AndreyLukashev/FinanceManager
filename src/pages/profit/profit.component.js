@@ -6,6 +6,7 @@ import { useModal } from "../../hooks/useModal";
 import { useNavigate } from "../../hooks/useNavigate";
 import { useToastNotification } from "../../hooks/useToastNotification";
 import { useUserStore } from "../../hooks/useUserStore";
+import { authService } from "../../services/Auth";
 import { extractFormData } from "../../utils/extractFormData";
 import template from "./profit.template.hbs";
 
@@ -15,6 +16,8 @@ export class ProfitPage extends Component {
     this.template = template();
     this.state = {
       isLoading: false,
+      user: null,
+      boards: [],
     };
   }
 
@@ -31,6 +34,24 @@ export class ProfitPage extends Component {
       ...this.state,
       user: getUser(),
     });
+  }
+
+  logOut = () => {
+    this.toggleIsLoading();
+    const { setUser } = useUserStore();
+    authService
+      .logOut()
+      .then(() => {
+        setUser(null);
+        useToastNotification({ type: TOAST_TYPE.success, message: "Success!" });
+        useNavigate(ROUTES.signIn);
+      })
+      .catch(({ message }) => {
+        useToastNotification({ message });
+      })
+      .finally(() => {
+        this.toggleIsLoading();
+      });
   }
 
   onClick = ({target}) => {

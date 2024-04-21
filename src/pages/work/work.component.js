@@ -13,7 +13,26 @@ export class WorkPage extends Component {
     this.template = template();
     this.state = {
       isLoading: false,
+      user: null
     };
+  }
+
+  logOut = () => {
+    this.toggleIsLoading();
+    const { setUser } = useUserStore();
+    authService
+      .logOut()
+      .then(() => {
+        setUser(null);
+        useToastNotification({ type: TOAST_TYPE.success, message: "Success!" });
+        useNavigate(ROUTES.signIn);
+      })
+      .catch(({ message }) => {
+        useToastNotification({ message });
+      })
+      .finally(() => {
+        this.toggleIsLoading();
+      });
   }
 
   onClick = ({target}) => {
@@ -34,23 +53,7 @@ export class WorkPage extends Component {
     }
   }
 
-  logOut = () => {
-    this.toggleIsLoading();
-    const { setUser } = useUserStore();
-    authService
-      .logOut()
-      .then(() => {
-        setUser(null);
-        useToastNotification({ type: TOAST_TYPE.success, message: "Success!" });
-        useNavigate(ROUTES.signIn);
-      })
-      .catch(({ message }) => {
-        useToastNotification({ message });
-      })
-      .finally(() => {
-        this.toggleIsLoading();
-      });
-  }
+ 
 
   toggleIsLoading = () => {
     this.setState({
