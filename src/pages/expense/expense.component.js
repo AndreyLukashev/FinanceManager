@@ -65,7 +65,6 @@ export class ExpensePage extends Component {
         this.toggleIsLoading();
         createExpenseApi(this.state.user.uid, formData)
           .then(({ data }) => {
-            useNavigate(`${ROUTES.expense}`);
             useToastNotification({
               message: "Success!",
               type: TOAST_TYPE.success,

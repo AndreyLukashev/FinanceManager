@@ -65,7 +65,6 @@ export class ProfitPage extends Component {
         this.toggleIsLoading();
         createProfitApi(this.state.user.uid, formData)
           .then(({ data }) => {
-            useNavigate(`${ROUTES.profit}`);
             useToastNotification({
               message: "Success!",
               type: TOAST_TYPE.success,
