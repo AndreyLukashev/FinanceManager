@@ -1,4 +1,4 @@
 export const API_URLS = {
-    boards: "boards",
-    tasks: "tasks",
+    profit: "profit",
+    expense: "expense",
   };

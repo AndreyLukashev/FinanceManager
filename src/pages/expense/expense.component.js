@@ -1,6 +1,6 @@
 import { Component } from "../../core/Component";
 import template from "./expense.template.hbs";
-import { createBoardApi, getBoardsApi } from "../../api/boards";
+import { createExpenseApi} from "../../api/transactions";
 import { useUserStore } from "../../hooks/useUserStore";
 import { useModal } from "../../hooks/useModal";
 import { extractFormData } from "../../utils/extractFormData";
@@ -8,6 +8,7 @@ import { useToastNotification } from "../../hooks/useToastNotification";
 import { useNavigate } from "../../hooks/useNavigate";
 import { ROUTES } from "../../constants/routes";
 import { TOAST_TYPE } from "../../constants/toast";
+import { authService } from "../../services/Auth";
 
 
 export class ExpensePage extends Component {
@@ -35,6 +36,24 @@ export class ExpensePage extends Component {
     });
   }
 
+  logOut = () => {
+    this.toggleIsLoading();
+    const { setUser } = useUserStore();
+    authService
+      .logOut()
+      .then(() => {
+        setUser(null);
+        useToastNotification({ type: TOAST_TYPE.success, message: "Success!" });
+        useNavigate(ROUTES.signIn);
+      })
+      .catch(({ message }) => {
+        useToastNotification({ message });
+      })
+      .finally(() => {
+        this.toggleIsLoading();
+      });
+  }
+
   openExpenseModal() {
     useModal({
       isOpen: true,
@@ -44,7 +63,7 @@ export class ExpensePage extends Component {
         const form = modal.querySelector(".create-expense-form");
         const formData = extractFormData(form);
         this.toggleIsLoading();
-        createBoardApi(this.state.user.uid, formData)
+        createExpenseApi(this.state.user.uid, formData)
           .then(({ data }) => {
             useNavigate(`${ROUTES.expense}`);
             useToastNotification({

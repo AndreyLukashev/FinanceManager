@@ -1,14 +1,14 @@
-import { createBoardApi } from "../../api/boards";
+import { Component } from "../../core/Component";
+import template from "./profit.template.hbs";
+import { createProfitApi} from "../../api/transactions";
+import { useUserStore } from "../../hooks/useUserStore";
+import { useModal } from "../../hooks/useModal";
+import { extractFormData } from "../../utils/extractFormData";
+import { useToastNotification } from "../../hooks/useToastNotification";
+import { useNavigate } from "../../hooks/useNavigate";
 import { ROUTES } from "../../constants/routes";
 import { TOAST_TYPE } from "../../constants/toast";
-import { Component } from "../../core/Component";
-import { useModal } from "../../hooks/useModal";
-import { useNavigate } from "../../hooks/useNavigate";
-import { useToastNotification } from "../../hooks/useToastNotification";
-import { useUserStore } from "../../hooks/useUserStore";
 import { authService } from "../../services/Auth";
-import { extractFormData } from "../../utils/extractFormData";
-import template from "./profit.template.hbs";
 
 export class ProfitPage extends Component {
   constructor() {
@@ -63,7 +63,7 @@ export class ProfitPage extends Component {
         const form = modal.querySelector(".create-profit-form");
         const formData = extractFormData(form);
         this.toggleIsLoading();
-        createBoardApi(this.state.user.uid, formData)
+        createProfitApi(this.state.user.uid, formData)
           .then(({ data }) => {
             useNavigate(`${ROUTES.profit}`);
             useToastNotification({
