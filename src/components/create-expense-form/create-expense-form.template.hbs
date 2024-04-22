@@ -1,29 +1,29 @@
 <form class="create-expense-form flex flex-col gap-3">
   <label class="w-full">
-    <p class="text-sm text-black">Категория</p>
-    <select name="category" class="p-2 w-full border rounded">
-      <option>Жилье</option>
-      <option>Здоровье</option>
-      <option>Продукты</option>
-      <option>Досуг</option>
-      <option>Образование</option>
-      <option>Подарки</option>
-      <option>Транспорт</option>
+    <p class="text-sm text-black">Категория рахода</p>
+    <select name="categories" class="p-2 w-full border rounded">
+      <option value="${props.categories.home}">Жилье</option>
+      <option value="${props.categories.health}">Здоровье</option>
+      <option value="${props.categories.products}">Продукты</option>
+      <option value="${props.categories.rest}">Досуг</option>
+      <option value="${props.categories.education}">Образование</option>
+      <option value="${props.categories.gift}">Подарки</option>
+      <option value="${props.categories.transport}">Транспорт</option>
     </select>
   </label>
 
   <label class="w-full">
     <p class="text-sm text-black">Сумма</p>
-    <input type="number" name="sum" class="p-2 w-full border rounded" />
+    <input type="number" name="sum" value="{{sum}}" class="p-2 w-full border rounded" />
   </label>
 
   <label class="w-full">
     <p class="text-sm text-black">Дата</p>
-    <input type="date" name="date" class="p-2 w-full border rounded" />
+    <input type="date" name="date" value="{{date}}" class="p-2 w-full border rounded" />
   </label>
 
   <label class="w-full">
     <p class="text-sm text-black">Описание</p>
-    <textarea name="description" class="p-2 w-full border rounded"></textarea>
+    <textarea name="description" class="p-2 w-full border rounded">{{description}}</textarea>
   </label>
 </form>

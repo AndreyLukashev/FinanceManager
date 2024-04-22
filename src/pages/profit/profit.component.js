@@ -1,6 +1,6 @@
 import { Component } from "../../core/Component";
 import template from "./profit.template.hbs";
-import { createProfitApi} from "../../api/transactions";
+import { createProfitApi, getProfitApi} from "../../api/transactions";
 import { useUserStore } from "../../hooks/useUserStore";
 import { useModal } from "../../hooks/useModal";
 import { extractFormData } from "../../utils/extractFormData";
@@ -9,6 +9,7 @@ import { useNavigate } from "../../hooks/useNavigate";
 import { ROUTES } from "../../constants/routes";
 import { TOAST_TYPE } from "../../constants/toast";
 import { authService } from "../../services/Auth";
+import { mapResponseApiData } from "../../utils/api";
 
 export class ProfitPage extends Component {
   constructor() {
@@ -80,6 +81,25 @@ export class ProfitPage extends Component {
     })
   }
 
+  loadAllBoards = () => {
+    // if (this.state.user?.uid) {
+      this.toggleIsLoading();
+      getProfitApi(this.state.user.uid)
+        .then(({ data }) => {
+          console.log(data);
+          this.setState({
+            ...this.state,
+            boards: data ? mapResponseApiData(data) : [],
+          });
+        })
+        .catch(({ message }) => {
+          useToastNotification({ message });
+        })
+        .finally(() => {
+          this.toggleIsLoading();
+        });
+    }
+
   onClick = ({target}) => {
     const logOut = target.closest('.logout');
     const workPage = target.closest('.work-page');
@@ -105,6 +125,7 @@ export class ProfitPage extends Component {
 
   componentDidMount() {
     this.setUser();
+    this.loadAllBoards();
     this.addEventListener('click', this.onClick);
   }
 

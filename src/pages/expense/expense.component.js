@@ -1,6 +1,6 @@
 import { Component } from "../../core/Component";
 import template from "./expense.template.hbs";
-import { createExpenseApi} from "../../api/transactions";
+import { createExpenseApi, deleteExpenseApi, getExpenseApi} from "../../api/transactions";
 import { useUserStore } from "../../hooks/useUserStore";
 import { useModal } from "../../hooks/useModal";
 import { extractFormData } from "../../utils/extractFormData";
@@ -9,6 +9,7 @@ import { useNavigate } from "../../hooks/useNavigate";
 import { ROUTES } from "../../constants/routes";
 import { TOAST_TYPE } from "../../constants/toast";
 import { authService } from "../../services/Auth";
+import { mapResponseApiData } from "../../utils/api";
 
 
 export class ExpensePage extends Component {
@@ -16,7 +17,8 @@ export class ExpensePage extends Component {
     super();
     this.template = template();
     this.state = {
-      boardId: null,
+      user: null,
+      boards: [],
       isLoading: false,
     }
 }
@@ -62,9 +64,10 @@ export class ExpensePage extends Component {
       onSuccess: (modal) => {
         const form = modal.querySelector(".create-expense-form");
         const formData = extractFormData(form);
+        console.log('formData', formData);
         this.toggleIsLoading();
         createExpenseApi(this.state.user.uid, formData)
-          .then(({ data }) => {
+          .then(( data ) => {
             useToastNotification({
               message: "Success!",
               type: TOAST_TYPE.success,
@@ -80,11 +83,53 @@ export class ExpensePage extends Component {
     })
   }
 
+  loadAllBoards = () => {
+    // if (this.state.user?.uid) {
+      this.toggleIsLoading();
+      getExpenseApi(this.state.user.uid)
+        .then(({ data }) => {
+          this.setState({
+            ...this.state,
+            boards: data ? mapResponseApiData(data) : [],
+          });
+        })
+        .catch(({ message }) => {
+          useToastNotification({ message });
+        })
+        .finally(() => {
+          this.toggleIsLoading();
+        });
+    }
+
+    deleteTransaction (id) {
+      console.log(id);
+      // useModal({
+      //   isOpen: true,
+      //   confirmation: "Вы действительно хотите удалить "
+      // })
+      // deleteExpenseApi(this.state.user.uid, id)
+      //   .then(() => {
+      //     loadAllBoards()
+          // this.setState({
+          //   ...this.state,
+      //       boards: data ? mapResponseApiData(data) : [],
+          // });
+        // })
+        // .catch(({ message }) => {
+        //   useToastNotification({ message });
+        // })
+        // .finally(() => {
+        //   this.toggleIsLoading();
+        // });
+    }
+  
+
   onClick = ({target}) => {
     const logOut = target.closest('.logout');
     const workPage = target.closest('.work-page');
     const profitPage = target.closest('.profit-page');
     const addExpense = target.closest('.create-expense');
+    const dltTransaction = target.closest('.delete-transaction');
 
     if(logOut){
       this.logOut();
@@ -101,10 +146,18 @@ export class ExpensePage extends Component {
     if(addExpense){
       this.openExpenseModal();
     }
+
+    if(dltTransaction){
+      this.deleteTransaction({
+        id: dltTransaction.dataset.id,
+      }
+      );
+    }
   }
 
   componentDidMount(){
     this.setUser();
+    this.loadAllBoards();
     this.addEventListener('click', this.onClick);
   }
 

@@ -1,9 +1,36 @@
-<div class="p-10 min-h-screen">
-    <ui-loader loading="{{isLoading}}" class-name="z-1 bg-white/70"></ui-loader>
-    <h1>PROFIT PAGE</h1>
-        <a href="mailto:{{user.email}}" class="text-lg font-light mt-2 text-slate-500 hover:text-indigo-500">{{user.email}}</a>
-        <button class="logout px-3.5 py-2.5 rounded-md mt-5 bg-red-500 hover:bg-red-400 shadow-sm text-white text-sm font-semibold">ВЫХОД</button>
-        <button class="work-page px-3.5 py-2.5 rounded-md mt-5 bg-indigo-500 hover:bg-indigo-400 shadow-sm text-white text-sm font-semibold">МЕНЮ</button>
-        <button class="expense-page px-3.5 py-2.5 rounded-md mt-5 bg-yellow-500 hover:bg-yellow-400 shadow-sm text-white text-sm font-semibold">РАСХОДЫ</button>
-        <button class="create-profit px-3.5 py-2.5 rounded-md mt-5 bg-green-500 hover:bg-green-400 shadow-sm text-white text-sm font-semibold">ДОБАВИТЬ ДОХОД</button>
+<div class="grid grid-cols-10 min-h-screen bg-workspace bg-cover">
+
+    <div class="col-span-1 relative">
+        <div class="px-5 mt-10">
+            <div class="flex items-center gap-2">
+                <img class="h-8 w-8" src="/wallet.svg" alt="">
+                <h1>PROFIT PAGE</h1>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="mailto:{{user.email}}" class="text-lg font-light mt-2 text-slate-500 hover:text-indigo-500">{{user.email}}</a>
+            </div>
+            <div>
+                <button class="logout min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-red-500 hover:bg-red-400 shadow-sm text-white text-sm font-semibold">ВЫХОД</button>
+                <button class="work-page min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-indigo-500 hover:bg-indigo-400 shadow-sm text-white text-sm font-semibold">МЕНЮ</button>
+                <button class="expense-page min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-yellow-500 hover:bg-yellow-400 shadow-sm text-white text-sm font-semibold">РАСХОДЫ</button>
+                <button class="create-profit min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-green-500 hover:bg-green-400 shadow-sm text-white text-sm font-semibold">ДОБАВИТЬ ДОХОД</button>
+            </div>
+        </div>
+    </div>
+<div class="col-span-4"></div>
+    <div class="col-span-5">
+        {{#each boards}}
+            <div data-id="{{this.id}}" class="m-1 bg-slate-300 flex relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
+                <p class="min-w-32 border-r-2 border-slate-900 p-1">Categories</p>
+                <p class="min-w-32 border-r-2 border-slate-900 p-1">{{sum}}</p>                
+                <p class="min-w-32 border-r-2 border-slate-900 p-1">{{date}}</p>                
+                <p class="p-1">{{description}}</p>                
+                <button data-id="{{this.id}}" data-title="{{this.title}}" class="delete-board absolute top-0 right-0 hover:text-red-500 bg-transparent rounded-lg text-lg w-8 h-8 ms-auto inline-flex justify-center items-center">
+                    <div class="icon-circle-x delete-transaction"></div>
+                </button>
+                <div class="p-4 line-clamp-1">{{this.title}}</div>
+            </div>
+        {{/each}}
+    </div>
+
 </div>
