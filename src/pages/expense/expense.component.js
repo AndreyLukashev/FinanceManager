@@ -149,10 +149,7 @@ export class ExpensePage extends Component {
     }
 
     if(dltTransaction){
-      // this.deleteTransaction({
-        
-      // });
-
+      // this.deleteTransaction({});
       console.log("datasetid", dltTransaction.dataset.id);
     }
   }
