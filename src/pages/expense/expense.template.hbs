@@ -12,13 +12,13 @@
             <div>
                 <button class="logout min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-red-500 hover:bg-red-400 shadow-sm text-white text-sm font-semibold">ВЫХОД</button>
                 <button class="work-page min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-indigo-500 hover:bg-indigo-400 shadow-sm text-white text-sm font-semibold">МЕНЮ</button>
-                <button class="profit-page min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-yellow-500 hover:bg-yellow-400 shadow-sm text-white text-sm font-semibold">ДОХОДЫ</button>
-                <button class="create-expense min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-green-500 hover:bg-green-400 shadow-sm text-white text-sm font-semibold">ДОБАВИТЬ РАСХОД</button>
+                <button class="profit-page min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-lime-500 hover:bg-lime-400 shadow-sm text-white text-sm font-semibold">ДОХОДЫ</button>
+                <button class="create-expense min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-teal-500 hover:bg-teal-400 shadow-sm text-white text-sm font-semibold">ДОБАВИТЬ РАСХОД</button>
             </div>
         </div>
     </div>
 <div class="col-span-4">
-    <p>{{expenseBalance}}</p>
+    <ui-loader loading="{{isLoading}}" class-name="z-1 bg-white/70"></ui-loader>
 </div>
     <div class="col-span-5">
         {{#each boards}}

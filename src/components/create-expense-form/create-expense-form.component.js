@@ -21,6 +21,7 @@ export class CreateProfitForm extends Component {
           sum: this.getAttribute("sum"),
           date: this.getAttribute("date"),
           description: this.getAttribute("description"),
+          expenseBalance: this.getAttribute("sum")
         });
       }
 

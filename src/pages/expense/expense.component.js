@@ -10,6 +10,8 @@ import { ROUTES } from "../../constants/routes";
 import { TOAST_TYPE } from "../../constants/toast";
 import { authService } from "../../services/Auth";
 import { mapResponseApiData } from "../../utils/api";
+import { apiService } from "../../services/Api";
+import { store } from "../../store/Store";
 
 
 export class ExpensePage extends Component {
@@ -102,25 +104,24 @@ export class ExpensePage extends Component {
     }
 
     deleteTransaction (id) {
-      console.log(id);
       // useModal({
       //   isOpen: true,
       //   confirmation: "Вы действительно хотите удалить "
       // })
-      // deleteExpenseApi(this.state.user.uid, id)
-      //   .then(() => {
-      //     loadAllBoards()
-          // this.setState({
-          //   ...this.state,
-      //       boards: data ? mapResponseApiData(data) : [],
-          // });
-        // })
-        // .catch(({ message }) => {
-        //   useToastNotification({ message });
-        // })
-        // .finally(() => {
-        //   this.toggleIsLoading();
-        // });
+      deleteExpenseApi(this.state.user.uid, id)
+        .then(() => {
+          loadAllBoards()
+          this.setState({
+            ...this.state,
+            boards: data ? mapResponseApiData(data) : [],
+          });
+        })
+        .catch(({ message }) => {
+          useToastNotification({ message });
+        })
+        .finally(() => {
+          this.toggleIsLoading();
+        });
     }
   
 
@@ -148,10 +149,11 @@ export class ExpensePage extends Component {
     }
 
     if(dltTransaction){
-      this.deleteTransaction({
-        id: dltTransaction.dataset.id,
-      }
-      );
+      // this.deleteTransaction({
+        
+      // });
+
+      console.log("datasetid", dltTransaction.dataset.id);
     }
   }
 

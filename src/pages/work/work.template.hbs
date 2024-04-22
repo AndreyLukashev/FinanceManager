@@ -1,9 +1,23 @@
-<div class="p-10 min-h-screen bg-workspace bg-cover">
-    <ui-loader loading="{{isLoading}}" class-name="z-1 bg-white/70"></ui-loader>
-    <h1>WORK PAGE</h1>
-        <a href="mailto:{{user.email}}" class="text-lg font-light mt-2 text-slate-500 hover:text-indigo-500">{{user.email}}</a>
-        <button class="logout px-3.5 py-2.5 rounded-md mt-5 bg-red-500 hover:bg-red-400 shadow-sm text-white text-sm font-semibold">ВЫХОД</button>
-        <button class="expense-page px-3.5 py-2.5 rounded-md mt-5 bg-indigo-500 hover:bg-indigo-400 shadow-sm text-white text-sm font-semibold">РАСХОДЫ</button>
-        <button class="profit-page px-3.5 py-2.5 rounded-md mt-5 bg-green-500 hover:bg-green-400 shadow-sm text-white text-sm font-semibold">ДОХОДЫ</button>
+<div class="grid grid-cols-10 min-h-screen bg-workspace bg-cover">
+
+    <div class="col-span-1 relative">
+        <div class="px-5 mt-10">
+            <div class="flex items-center gap-2">
+                <img class="h-8 w-8" src="/wallet.svg" alt="">
+                <h1>WORK PAGE</h1>
+            </div>
+            <div class="flex items-center gap-2">
+                <a href="mailto:{{user.email}}" class="text-lg font-light mt-2 text-slate-500 hover:text-indigo-500">{{user.email}}</a>
+            </div>
+            <div>
+                <button class="logout min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-red-500 hover:bg-red-400 shadow-sm text-white text-sm font-semibold">ВЫХОД</button>
+                <button class="expense-page min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-teal-500 hover:bg-teal-400 shadow-sm text-white text-sm font-semibold">РАСХОДЫ</button>
+                <button class="profit-page min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-lime-500 hover:bg-lime-400 shadow-sm text-white text-sm font-semibold">ДОХОДЫ</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-span-9">
+        <ui-loader loading="{{isLoading}}" class-name="z-1 bg-white/70"></ui-loader>
+    </div>
 
 </div>
