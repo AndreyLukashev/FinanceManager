@@ -21,7 +21,7 @@
     <div class="col-span-5">
         {{#each boards}}
             <div data-id="{{this.id}}" class="m-1 bg-slate-300 flex relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
-                <p class="min-w-32 border-r-2 border-slate-900 p-1">Categories</p>
+                <p class="min-w-32 border-r-2 border-slate-900 p-1">{{categories}}</p>
                 <p class="min-w-32 border-r-2 border-slate-900 p-1">{{sum}}</p>                
                 <p class="min-w-32 border-r-2 border-slate-900 p-1">{{date}}</p>                
                 <p class="p-1">{{description}}</p>                

@@ -1,6 +1,5 @@
 import { Component } from "../../core/Component";
 import template from "./create-expense-form.template.hbs";
-import { EXPENSE_TYPE } from "../../constants/categories";
 
 export class CreateProfitForm extends Component {
     constructor() {
