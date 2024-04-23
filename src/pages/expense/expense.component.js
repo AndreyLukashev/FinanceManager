@@ -86,7 +86,8 @@ export class ExpensePage extends Component {
   }
 
   loadAllBoards = () => {
-    // if (this.state.user?.uid) {
+    if (this.state.user?.uid) {
+      console.log(this.state.user.uid);
       this.toggleIsLoading();
       getExpenseApi(this.state.user.uid)
         .then(({ data }) => {
@@ -101,6 +102,7 @@ export class ExpensePage extends Component {
         .finally(() => {
           this.toggleIsLoading();
         });
+      }
     }
 
     deleteTransaction (id) {
@@ -149,8 +151,10 @@ export class ExpensePage extends Component {
     }
 
     if(dltTransaction){
-      // this.deleteTransaction({});
-      console.log("datasetid", dltTransaction.dataset.id);
+      // this.deleteTransaction({
+      //   id: dltTransaction.dataset.id,
+      // });
+      console.log("datasetid", dltTransaction.dataset);
     }
   }
 

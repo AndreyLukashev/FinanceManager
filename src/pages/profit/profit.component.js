@@ -82,11 +82,11 @@ export class ProfitPage extends Component {
   }
 
   loadAllBoards = () => {
-    // if (this.state.user?.uid) {
+    if (this.state.user?.uid) {
+      console.log(this.state.user.uid);
       this.toggleIsLoading();
       getProfitApi(this.state.user.uid)
         .then(({ data }) => {
-          console.log(data);
           this.setState({
             ...this.state,
             boards: data ? mapResponseApiData(data) : [],
@@ -99,7 +99,7 @@ export class ProfitPage extends Component {
           this.toggleIsLoading();
         });
     }
-
+  }
   onClick = ({target}) => {
     const logOut = target.closest('.logout');
     const workPage = target.closest('.work-page');
