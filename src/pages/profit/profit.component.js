@@ -1,6 +1,6 @@
 import { Component } from "../../core/Component";
 import template from "./profit.template.hbs";
-import { createProfitApi, getProfitApi} from "../../api/transactions";
+import { createProfitApi, deleteProfitApi, getProfitApi} from "../../api/transactions";
 import { useUserStore } from "../../hooks/useUserStore";
 import { useModal } from "../../hooks/useModal";
 import { extractFormData } from "../../utils/extractFormData";
@@ -16,9 +16,9 @@ export class ProfitPage extends Component {
     super();
     this.template = template();
     this.state = {
-      isLoading: false,
       user: null,
       transactions: [],
+      isLoading: false,
     };
   }
 
@@ -84,7 +84,6 @@ export class ProfitPage extends Component {
 
   loadAllTransactions = () => {
     if (this.state.user?.uid) {
-      console.log(this.state.user.uid);
       this.toggleIsLoading();
       getProfitApi(this.state.user.uid)
         .then(({ data }) => {
@@ -101,11 +100,40 @@ export class ProfitPage extends Component {
         });
     }
   }
+
+  deleteTransaction ({id}) {
+    useModal({
+      isOpen: true,
+      title: 'Delete transaction',
+      confirmation: `Do you really want to delete transaction`,
+      successCaption: "Delete",
+      onSuccess: () => {
+          this.toggleIsLoading();
+      deleteProfitApi(this.state.user.uid, id)
+        .then(() => {
+          this.loadAllTransactions()
+          useToastNotification({
+            message: `Transaction was deleted`,
+            type: TOAST_TYPE.success,
+          });
+        })
+        .catch(({ message }) => {
+          useToastNotification({ message });
+        })
+        .finally(() => {
+          this.toggleIsLoading();
+        });
+      }
+    })
+  }
+
+
   onClick = ({target}) => {
     const logOut = target.closest('.logout');
     const workPage = target.closest('.work-page');
     const expensePage = target.closest('.expense-page');
     const addProfit = target.closest('.create-profit');
+    const dltTransaction = target.closest('.delete-transaction');
 
     if(logOut){
       this.logOut();
@@ -121,6 +149,12 @@ export class ProfitPage extends Component {
 
     if(addProfit){
       this.openProfitModal();
+    }
+
+    if(dltTransaction){
+      this.deleteTransaction({
+        id: dltTransaction.dataset.id,
+      });
     }
   }
 

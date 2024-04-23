@@ -10,9 +10,6 @@ import { ROUTES } from "../../constants/routes";
 import { TOAST_TYPE } from "../../constants/toast";
 import { authService } from "../../services/Auth";
 import { mapResponseApiData } from "../../utils/api";
-import { apiService } from "../../services/Api";
-import { store } from "../../store/Store";
-
 
 export class ExpensePage extends Component {
   constructor() {
@@ -88,11 +85,9 @@ export class ExpensePage extends Component {
 
   loadAllTransactions = () => {
     if (this.state.user?.uid) {
-      console.log(this.state.user.uid);
       this.toggleIsLoading();
       getExpenseApi(this.state.user.uid)
         .then(({ data }) => {
-          console.log(mapResponseApiData(data));
           this.setState({
             ...this.state,
             transactions: data ? mapResponseApiData(data) : [],
@@ -107,11 +102,14 @@ export class ExpensePage extends Component {
       }
     }
 
-    deleteTransaction ({id}) {
-      // useModal({
-      //   isOpen: true,
-      //   confirmation: "Вы действительно хотите удалить "
-      // })
+  deleteTransaction ({id}) {
+    useModal({
+      isOpen: true,
+      title: 'Delete transaction',
+      confirmation: `Do you really want to delete transaction`,
+      successCaption: "Delete",
+      onSuccess: () => {
+          this.toggleIsLoading();
       deleteExpenseApi(this.state.user.uid, id)
         .then(() => {
           this.loadAllTransactions()
@@ -126,7 +124,9 @@ export class ExpensePage extends Component {
         .finally(() => {
           this.toggleIsLoading();
         });
-    }
+      }
+    })
+  }
   
 
   onClick = ({target}) => {
@@ -156,7 +156,6 @@ export class ExpensePage extends Component {
       this.deleteTransaction({
         id: dltTransaction.dataset.id,
       });
-      console.log("datasetid", dltTransaction.dataset.id);
     }
   }
 
