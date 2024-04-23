@@ -21,7 +21,7 @@
     <ui-loader loading="{{isLoading}}" class-name="z-1 bg-white/70"></ui-loader>
 </div>
     <div class="col-span-5">
-        {{#each boards}}
+        {{#each transactions}}
             <div data-id="{{this.id}}" class="m-1 bg-slate-300 flex relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
                 <p class="min-w-32 border-r-2 border-slate-900 p-1">{{categories}}</p>
                 <p class="min-w-32 border-r-2 border-slate-900 p-1">{{sum}}</p>                

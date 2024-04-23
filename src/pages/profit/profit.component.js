@@ -18,7 +18,7 @@ export class ProfitPage extends Component {
     this.state = {
       isLoading: false,
       user: null,
-      boards: [],
+      transactions: [],
     };
   }
 
@@ -82,7 +82,7 @@ export class ProfitPage extends Component {
     })
   }
 
-  loadAllBoards = () => {
+  loadAllTransactions = () => {
     if (this.state.user?.uid) {
       console.log(this.state.user.uid);
       this.toggleIsLoading();
@@ -90,7 +90,7 @@ export class ProfitPage extends Component {
         .then(({ data }) => {
           this.setState({
             ...this.state,
-            boards: data ? mapResponseApiData(data) : [],
+            transactions: data ? mapResponseApiData(data) : [],
           });
         })
         .catch(({ message }) => {
@@ -126,7 +126,7 @@ export class ProfitPage extends Component {
 
   componentDidMount() {
     this.setUser();
-    this.loadAllBoards();
+    this.loadAllTransactions();
     this.addEventListener('click', this.onClick);
   }
 

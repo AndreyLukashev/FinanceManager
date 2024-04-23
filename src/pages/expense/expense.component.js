@@ -20,7 +20,7 @@ export class ExpensePage extends Component {
     this.template = template();
     this.state = {
       user: null,
-      boards: [],
+      transactions: [],
       isLoading: false,
     }
 }
@@ -86,15 +86,16 @@ export class ExpensePage extends Component {
     })
   }
 
-  loadAllBoards = () => {
+  loadAllTransactions = () => {
     if (this.state.user?.uid) {
       console.log(this.state.user.uid);
       this.toggleIsLoading();
       getExpenseApi(this.state.user.uid)
         .then(({ data }) => {
+          console.log(mapResponseApiData(data));
           this.setState({
             ...this.state,
-            boards: data ? mapResponseApiData(data) : [],
+            transactions: data ? mapResponseApiData(data) : [],
           });
         })
         .catch(({ message }) => {
@@ -113,7 +114,7 @@ export class ExpensePage extends Component {
       // })
       deleteExpenseApi(this.state.user.uid, id)
         .then(() => {
-          loadAllBoards()
+          loadAllTransactions()
           this.setState({
             ...this.state,
             boards: data ? mapResponseApiData(data) : [],
@@ -161,7 +162,7 @@ export class ExpensePage extends Component {
 
   componentDidMount(){
     this.setUser();
-    this.loadAllBoards();
+    this.loadAllTransactions();
     this.addEventListener('click', this.onClick);
   }
 
