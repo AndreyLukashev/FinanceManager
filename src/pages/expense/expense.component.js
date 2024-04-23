@@ -117,7 +117,7 @@ export class ExpensePage extends Component {
           loadAllTransactions()
           this.setState({
             ...this.state,
-            boards: data ? mapResponseApiData(data) : [],
+            transactions: data ? mapResponseApiData(data) : [],
           });
         })
         .catch(({ message }) => {
