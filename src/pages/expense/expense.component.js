@@ -107,17 +107,17 @@ export class ExpensePage extends Component {
       }
     }
 
-    deleteTransaction (id) {
+    deleteTransaction ({id}) {
       // useModal({
       //   isOpen: true,
       //   confirmation: "Вы действительно хотите удалить "
       // })
       deleteExpenseApi(this.state.user.uid, id)
         .then(() => {
-          loadAllTransactions()
-          this.setState({
-            ...this.state,
-            transactions: data ? mapResponseApiData(data) : [],
+          this.loadAllTransactions()
+          useToastNotification({
+            message: `Transaction was deleted`,
+            type: TOAST_TYPE.success,
           });
         })
         .catch(({ message }) => {
@@ -153,10 +153,10 @@ export class ExpensePage extends Component {
     }
 
     if(dltTransaction){
-      // this.deleteTransaction({
-      //   id: dltTransaction.dataset.id,
-      // });
-      console.log("datasetid", dltTransaction.dataset);
+      this.deleteTransaction({
+        id: dltTransaction.dataset.id,
+      });
+      console.log("datasetid", dltTransaction.dataset.id);
     }
   }
 
