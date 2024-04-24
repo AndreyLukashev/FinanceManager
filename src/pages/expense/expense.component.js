@@ -11,6 +11,8 @@ import { TOAST_TYPE } from "../../constants/toast";
 import { authService } from "../../services/Auth";
 import { mapResponseApiData } from "../../utils/api";
 
+// ___________________________________________________________________
+
 export class ExpensePage extends Component {
   constructor() {
     super();
@@ -22,12 +24,16 @@ export class ExpensePage extends Component {
     }
 }
 
+// ___________________________________________________________________
+
   toggleIsLoading = () => {
     this.setState({
       ...this.state,
       isLoading: !this.state.isLoading,
     });
   };
+
+// ___________________________________________________________________
 
   setUser() {
     const { getUser } = useUserStore();
@@ -36,6 +42,8 @@ export class ExpensePage extends Component {
       user: getUser(),
     });
   }
+
+// ___________________________________________________________________
 
   logOut = () => {
     this.toggleIsLoading();
@@ -55,6 +63,8 @@ export class ExpensePage extends Component {
       });
   }
 
+// ___________________________________________________________________
+
   openExpenseModal() {
     useModal({
       isOpen: true,
@@ -63,7 +73,6 @@ export class ExpensePage extends Component {
       onSuccess: (modal) => {
         const form = modal.querySelector(".create-expense-form");
         const formData = extractFormData(form);
-        console.log('formData', formData);
         this.toggleIsLoading();
         createExpenseApi(this.state.user.uid, formData)
           .then(( data ) => {
@@ -83,6 +92,8 @@ export class ExpensePage extends Component {
     })
   }
 
+// ___________________________________________________________________
+
   loadAllTransactions = () => {
     if (this.state.user?.uid) {
       this.toggleIsLoading();
@@ -101,6 +112,8 @@ export class ExpensePage extends Component {
         });
       }
     }
+
+// ___________________________________________________________________
 
   deleteTransaction ({id}) {
     useModal({
@@ -128,6 +141,7 @@ export class ExpensePage extends Component {
     })
   }
   
+// ___________________________________________________________________
 
   onClick = ({target}) => {
     const logOut = target.closest('.logout');
@@ -158,6 +172,8 @@ export class ExpensePage extends Component {
       });
     }
   }
+
+// ___________________________________________________________________
 
   componentDidMount(){
     this.setUser();
