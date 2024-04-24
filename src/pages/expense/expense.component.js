@@ -80,7 +80,7 @@ export class ExpensePage extends Component {
               message: "Success!",
               type: TOAST_TYPE.success,
             });
-            location.reload();
+            this.loadAllTransactions();
           })
           .catch(({ message }) => {
             useToastNotification({ message });
