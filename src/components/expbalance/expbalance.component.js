@@ -10,8 +10,8 @@ export class ExpBalance extends Component {
     super();
     this.template = template();
     this.state = {
-        arrbalance: [],
-        expbalance: 0,
+        arrBalance: [],
+        expBalance: 0,
     };
   }
 
@@ -29,11 +29,11 @@ export class ExpBalance extends Component {
         .then(({ data }) => {
           this.setState({
             ...this.state,
-            arrbalance: data ? mapResponseApiData(data) : [],
-            expbalance: mapResponseApiData(data).arrbalance.reduce((prev, current) => (prev += Number(current.sum)), 0),
+            arrBalance: data ? mapResponseApiData(data) : [],
+            expBalance: mapResponseApiData(data).reduce((prev, current) => (prev += Number(current.sum)), 0),
            
           }); 
-          console.log(this.expbalance);
+          console.log(this.expBalance);
         })
         .catch(({ message }) => {
           useToastNotification({ message });
@@ -47,7 +47,7 @@ export class ExpBalance extends Component {
 
   componentDidMount() {
     this.setUser();
-    this.addEventListener('click', this.changeBalance);
+    this.changeBalance();
   }
 
   componentWillUnmount() {
