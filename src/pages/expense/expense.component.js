@@ -10,6 +10,7 @@ import { ROUTES } from "../../constants/routes";
 import { TOAST_TYPE } from "../../constants/toast";
 import { authService } from "../../services/Auth";
 import { mapResponseApiData } from "../../utils/api";
+import { eventEmitter } from "../../core/EventEmitter";
 
 // ___________________________________________________________________
 
@@ -164,9 +165,9 @@ filterExpense = () => {
       })
       .finally(() => {
         this.toggleIsLoading();
-        console.log(this.state.arrFilter);
+        // console.log(this.state.arrFilter);
         console.log(typeof(this.state.arrFilter[1].date), this.state.arrFilter[1].date);
-        console.log(this.state.transactions);
+        // console.log(this.state.transactions);
         console.log(typeof(this.state.date), this.state.date);
       });
     }
@@ -220,7 +221,7 @@ filterExpense = () => {
     this.setUser();
     this.loadAllTransactions();
     this.addEventListener('click', this.onClick);
-    // this.addEventListener('change', this.onClick)
+    this.addEventListener("change", (event) => { event.target.filter-categories});
   }
 
   componentWillUnmount() {
