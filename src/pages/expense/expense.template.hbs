@@ -20,6 +20,21 @@
 <div class="col-span-4">
     <ui-loader loading="{{isLoading}}" class-name="z-1 bg-white/70"></ui-loader>
     <ui-balance></ui-balance>
+    <button class="filter min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-emerald-500 hover:bg-emerald-400 shadow-sm text-white text-sm font-semibold">Filter</button>
+    <label class="w-full">
+    <p class="text-sm text-black">Категория расхода</p>
+    <select name="categories" class="filter-categories p-2 w-full border rounded">
+      <option ></option>
+      <option >Жилье</option>
+      <option >Здоровье</option>
+      <option >Продукты</option>
+      <option >Досуг</option>
+      <option >Образование</option>
+      <option >Подарки</option>
+      <option >Транспорт</option>
+    </select>
+  </label>
+
 </div>
     <div class="col-span-5">
         {{#each transactions}}

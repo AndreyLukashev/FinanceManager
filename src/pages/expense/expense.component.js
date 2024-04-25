@@ -21,6 +21,8 @@ export class ExpensePage extends Component {
       user: null,
       transactions: [],
       isLoading: false,
+      arrFilter: [],
+      date: new Date()
     }
 }
 
@@ -143,12 +145,51 @@ export class ExpensePage extends Component {
   
 // ___________________________________________________________________
 
+filterExpense = () => {
+  if (this.state.user?.uid) {
+    this.toggleIsLoading();
+    getExpenseApi(this.state.user.uid)
+      .then(({ data }) => {
+        this.setState({
+          ...this.state,
+          arrFilter: data ? mapResponseApiData(data) : [],
+          transactions: mapResponseApiData(data).filter(item => item.sum < 1000)
+          // transactions: mapResponseApiData(data).filter(item => item.date == new Date())
+          
+          
+        }); 
+      })
+      .catch(({ message }) => {
+        useToastNotification({ message });
+      })
+      .finally(() => {
+        this.toggleIsLoading();
+        console.log(this.state.arrFilter);
+        console.log(typeof(this.state.arrFilter[1].date), this.state.arrFilter[1].date);
+        console.log(this.state.transactions);
+        console.log(typeof(this.state.date), this.state.date);
+      });
+    }
+}
+
+// ___________________________________________________________________
+
   onClick = ({target}) => {
     const logOut = target.closest('.logout');
     const workPage = target.closest('.work-page');
     const profitPage = target.closest('.profit-page');
     const addExpense = target.closest('.create-expense');
     const dltTransaction = target.closest('.delete-transaction');
+    const filterbtn = target.closest('.filter');
+    // const filterselect = target.closest('.filter-categories')
+
+    if(filterbtn){
+      this.filterExpense()
+    }
+
+    // if(filterselect){
+    //   this.filterExpense()
+    // }
 
     if(logOut){
       this.logOut();
@@ -179,6 +220,7 @@ export class ExpensePage extends Component {
     this.setUser();
     this.loadAllTransactions();
     this.addEventListener('click', this.onClick);
+    // this.addEventListener('change', this.onClick)
   }
 
   componentWillUnmount() {
