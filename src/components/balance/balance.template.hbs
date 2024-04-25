@@ -1,5 +1,16 @@
-<div class="bg-red-500">
-    <p>Ваши доходы: {{profBalance}}</p>
-    <p>Ваши расходы: {{expBalance}}</p>
-    <p>Ваш баланс: {{totalBalance}}</p>
+<div class="flex max-w-80 m-1 bg-amber-100 relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
+    <p class="min-w-32 border-slate-900 p-1 border-r-2">Ваши доходы:</p>    
+    <p class=" border-slate-900 p-1">{{profBalance}}</p>    
 </div>
+
+<div class="flex max-w-80 m-1 bg-amber-100 relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
+<p class="min-w-32  border-slate-900 p-1 border-r-2">Ваши расходы:</p>
+<p class="  border-slate-900 p-1">{{expBalance}}</p>
+</div>
+
+<div class="flex max-w-80 m-1 bg-amber-100 relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
+<p class="min-w-32  border-slate-900 p-1 border-r-2">Ваш баланс:</p>
+<p class="  border-slate-900 p-1">{{totalBalance}}</p>
+</div>
+
+    
