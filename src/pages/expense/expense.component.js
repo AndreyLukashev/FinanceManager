@@ -166,9 +166,12 @@ filterExpense = () => {
       .finally(() => {
         this.toggleIsLoading();
         // console.log(this.state.arrFilter);
-        console.log(typeof(this.state.arrFilter[1].date), this.state.arrFilter[1].date);
+        const today = new Date().valueOf();
+        const selectedDay = new Date(this.state.arrFilter[2].date).valueOf()
+        console.log(today, selectedDay, today < selectedDay);
         // console.log(this.state.transactions);
         console.log(typeof(this.state.date), this.state.date);
+        
       });
     }
 }
@@ -182,15 +185,11 @@ filterExpense = () => {
     const addExpense = target.closest('.create-expense');
     const dltTransaction = target.closest('.delete-transaction');
     const filterbtn = target.closest('.filter');
-    // const filterselect = target.closest('.filter-categories')
 
     if(filterbtn){
       this.filterExpense()
     }
 
-    // if(filterselect){
-    //   this.filterExpense()
-    // }
 
     if(logOut){
       this.logOut();
@@ -215,17 +214,48 @@ filterExpense = () => {
     }
   }
 
+  onFilter = ({ target }) => {
+    const field = target.closest('.filter-categories');
+    console.log(field, field.value)
+    if (this.state.user?.uid) {
+      this.toggleIsLoading();
+      getExpenseApi(this.state.user.uid)
+        .then(({ data }) => {
+          this.setState({
+            ...this.state,
+            arrFilter: data ? mapResponseApiData(data) : [],
+            // transactions: mapResponseApiData(data).filter(item => item.sum < 1000)
+            // transactions: mapResponseApiData(data).filter(item => item.date == new Date())
+            transactions: mapResponseApiData(data).filter(item => item.categories == field.value)
+            
+          }); 
+        })
+        .catch(({ message }) => {
+          useToastNotification({ message });
+        })
+        .finally(() => {
+          this.toggleIsLoading();
+          // console.log(this.state.arrFilter);
+          // console.log(typeof(this.state.arrFilter[1].date), this.state.arrFilter[1].date);
+          // console.log(this.state.transactions);
+          // console.log(typeof(this.state.date), this.state.date);
+          
+        });
+      }
+  }
+
 // ___________________________________________________________________
 
   componentDidMount(){
     this.setUser();
     this.loadAllTransactions();
     this.addEventListener('click', this.onClick);
-    this.addEventListener("change", (event) => { event.target.filter-categories});
+    // this.addEventListener("change", this.onFilter);
   }
 
   componentWillUnmount() {
-    this.removeEventListener('clik', this.onClick)
+    this.removeEventListener('click', this.onClick)
+    // this.removeEventListener("change", this.onFilter);
   }
 }
 

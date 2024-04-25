@@ -3,18 +3,18 @@ import { Component } from "../../core/Component";
 import { useToastNotification } from "../../hooks/useToastNotification";
 import { useUserStore } from "../../hooks/useUserStore";
 import { mapResponseApiData } from "../../utils/api";
-import template from "./balance.template.hbs";
+import template from "./filter-balance.template.hbs";
 
-export class Balance extends Component {
+export class FilterBalance extends Component {
   constructor() {
     super();
     this.template = template();
     this.state = {
-      arrProfBalance: [],
-      profBalance: 0,
-      arrExpBalance: [],
-      expBalance: 0,
-      totalBalance: 0,
+      
+      
+      arrExpFilterBalance: [],
+      expFilterBalance: 0,
+      
     };
   }
 
@@ -26,35 +26,32 @@ export class Balance extends Component {
   };
 
 
-  changeProfitBalance = () => {
+  changeFilterBalance = ({ target }) => {
+    console.log('filter');
+    const field = target.closest('.filter-categories')
     const { getUser } = useUserStore();
     const user = getUser();
     if (user?.uid) {
       this.toggleIsLoading();
       Promise.all([
-        getProfitApi(user.uid),
+        
         getExpenseApi(user.uid),
       ])
-        .then(([profit, expense]) => {
-          const mappedProfit = mapResponseApiData(profit.data) ?? [];
+        .then(([expense]) => {
+          
           const mappedExpense = mapResponseApiData(expense.data) ?? [];
-          const profBalance = mappedProfit.reduce(
-            (prev, current) => (prev += Number(current.sum)),
-            0
-          );
-          const expBalance = mappedExpense.reduce(
-            (prev, current) => (prev += Number(current.sum)),
-            0
-          );
-
+          
+          const expFilterBalance = mappedExpense.reduce(
+            (prev, current) => (prev += Number(current.sum)),0);
+          // mappedExpense.filter(item => item.categories == field.value);
           this.setState({
             ...this.state,
             user,
-            arrProfBalance: mappedProfit,
-            arrExpBalance: mappedExpense,
-            profBalance,
-            expBalance,
-            totalBalance: profBalance - expBalance,
+           
+            arrExpFilterBalance: mappedExpense.filter(item => item.categories == field.value),
+            
+            expFilterBalance,
+            
           });
         })
         .catch(({ message }) => {
@@ -97,8 +94,8 @@ export class Balance extends Component {
   // }
 
   componentDidMount() {
-    this.changeProfitBalance();
-    // document.addEventListener("change", this.onFilter);
+    // this.changeFilterBalance();
+    document.addEventListener("change", this.changeFilterBalance);
   }
 
   componentWillUnmount() {
@@ -106,4 +103,4 @@ export class Balance extends Component {
   }
 }
 
-customElements.define("ui-balance", Balance);
+customElements.define("ui-filter-balance", FilterBalance);
