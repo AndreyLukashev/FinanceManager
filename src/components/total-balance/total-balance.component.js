@@ -3,17 +3,17 @@ import { Component } from "../../core/Component";
 import { useToastNotification } from "../../hooks/useToastNotification";
 import { useUserStore } from "../../hooks/useUserStore";
 import { mapResponseApiData } from "../../utils/api";
-import template from "./balance.template.hbs";
+import template from "./total-balance.template.hbs";
 
-export class Balance extends Component {
+export class TotalBalance extends Component {
   constructor() {
     super();
     this.template = template();
     this.state = {
-      arrProfBalance: [],
-      profBalance: 0,
-      arrExpBalance: [],
-      expBalance: 0,
+      arrProfTotalBalance: [],
+      profTotalBalance: 0,
+      arrExpTotalBalance: [],
+      expTotalBalance: 0,
       totalBalance: 0,
     };
   }
@@ -25,46 +25,59 @@ export class Balance extends Component {
     });
   };
 
+  setUser() {
+        const { getUser } = useUserStore();
+        this.setState({
+          ...this.state,
+          user: getUser(),
+        });
+      }
 
-  changeProfitBalance = () => {
-    const { getUser } = useUserStore();
-    const user = getUser();
-    if (user?.uid) {
+  countBalance = () => {
+    if (this.state.user?.uid) {
       this.toggleIsLoading();
-      Promise.all([
-        getProfitApi(user.uid),
-        getExpenseApi(user.uid),
-      ])
-        .then(([profit, expense]) => {
-          const mappedProfit = mapResponseApiData(profit.data) ?? [];
-          const mappedExpense = mapResponseApiData(expense.data) ?? [];
-          const profBalance = mappedProfit.reduce(
-            (prev, current) => (prev += Number(current.sum)),
-            0
-          );
-          const expBalance = mappedExpense.reduce(
-            (prev, current) => (prev += Number(current.sum)),
-            0
-          );
-
+      getProfitApi(this.state.user.uid)
+        .then(({ data }) => {
           this.setState({
             ...this.state,
-            user,
-            arrProfBalance: mappedProfit,
-            arrExpBalance: mappedExpense,
-            profBalance,
-            expBalance,
-            totalBalance: profBalance - expBalance,
-          });
+            arrProfTotalBalance: data ? mapResponseApiData(data) : [],
+            profTotalBalance: mapResponseApiData(data).reduce((prev, current) => (prev += Number(current.sum)), 0),
+          }); 
         })
         .catch(({ message }) => {
           useToastNotification({ message });
         })
         .finally(() => {
-          this.toggleIsLoading();
+          this.countExpenseBalance();
         });
     }
-  };
+  }
+        
+    countExpenseBalance = () => {
+      if (this.state.user?.uid) {
+        getExpenseApi(this.state.user.uid)
+          .then(({ data }) => {
+            this.setState({
+              ...this.state,
+              arrExpTotalBalance: data ? mapResponseApiData(data) : [],
+              expTotalBalance: mapResponseApiData(data).reduce((prev, current) => (prev += Number(current.sum)), 0),
+            }); 
+          })
+          .catch(({ message }) => {
+            useToastNotification({ message });
+          })
+          .finally(() => {
+            this.countTotalBalance();
+          });
+      }
+    }
+      
+    countTotalBalance = () => {
+      this.setState({
+        ...this.state,
+        totalBalance: this.state.profTotalBalance - this.state.expTotalBalance,
+      })
+    };
 
   // onFilter = ({ target }) => {
   //   const field = target.closest('.filter-categories');
@@ -97,7 +110,8 @@ export class Balance extends Component {
   // }
 
   componentDidMount() {
-    this.changeProfitBalance();
+    this.setUser();
+    this.countBalance();
     // document.addEventListener("change", this.onFilter);
   }
 
@@ -106,4 +120,4 @@ export class Balance extends Component {
   }
 }
 
-customElements.define("ui-balance", Balance);
+customElements.define("ui-total-balance", TotalBalance);

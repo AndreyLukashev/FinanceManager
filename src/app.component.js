@@ -22,7 +22,7 @@ import "./components/loader/loader.component";
 import "./components/modal/modal.component";
 import "./components/create-profit-form/create-profit-form.component";
 import "./components/create-expense-form/create-expense-form.component";
-import "./components/balance/balance.component";
+import "./components/total-balance/total-balance.component";
 import "./components/filter-balance/filter-balance.component"
 
 export class App extends Component {
