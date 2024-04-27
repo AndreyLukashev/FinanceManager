@@ -1,26 +1,37 @@
 <div class="grid grid-cols-10 min-h-screen bg-workspace bg-cover">
-
     <div class="col-span-1 relative">
         <div class="px-5 mt-10">
+
             <div class="flex items-center gap-2">
                 <img class="h-8 w-8" src="/wallet.svg" alt="">
                 <h1>PROFIT PAGE</h1>
             </div>
+
             <div class="flex items-center gap-2">
                 <a href="mailto:{{user.email}}" class="text-lg font-light mt-2 text-slate-500 hover:text-indigo-500">{{user.email}}</a>
             </div>
+
             <div>
                 <button class="logout min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-red-500 hover:bg-red-400 shadow-sm text-white text-sm font-semibold">ВЫХОД</button>
                 <button class="work-page min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-indigo-500 hover:bg-indigo-400 shadow-sm text-white text-sm font-semibold">МЕНЮ</button>
                 <button class="expense-page min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-teal-500 hover:bg-tael-400 shadow-sm text-white text-sm font-semibold">РАСХОДЫ</button>
                 <button class="create-profit min-w-40 min-h-16 px-3.5 py-2.5 rounded-md mt-5 bg-lime-500 hover:bg-lime-400 shadow-sm text-white text-sm font-semibold">ДОБАВИТЬ ДОХОД</button>
             </div>
+
         </div>
     </div>
-<div class="col-span-4">
-    <ui-loader loading="{{isLoading}}" class-name="z-1 bg-white/70"></ui-loader>
-    <ui-balance></ui-balance>
-</div>
+
+    <div class="col-span-4 flex">
+        <div class="col-span-2">
+            <ui-total-balance></ui-total-balance>           
+        </div>
+
+        <div class="col-span-2">
+            <ui-loader loading="{{isLoading}}" class-name="z-1 bg-white/70"></ui-loader>
+            <ui-filter-profit-balance></ui-filter-profit-balance>
+        </div>
+    </div>
+
     <div class="col-span-5">
         {{#each transactions}}
             <div data-id="{{this.id}}" class="m-1 bg-slate-300 flex relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
@@ -35,5 +46,4 @@
             </div>
         {{/each}}
     </div>
-
 </div>

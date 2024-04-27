@@ -27,16 +27,12 @@ export class ExpensePage extends Component {
     }
 }
 
-// ___________________________________________________________________
-
   toggleIsLoading = () => {
     this.setState({
       ...this.state,
       isLoading: !this.state.isLoading,
     });
   };
-
-// ___________________________________________________________________
 
   setUser() {
     const { getUser } = useUserStore();
@@ -45,8 +41,6 @@ export class ExpensePage extends Component {
       user: getUser(),
     });
   }
-
-// ___________________________________________________________________
 
   logOut = () => {
     this.toggleIsLoading();
@@ -65,8 +59,6 @@ export class ExpensePage extends Component {
         this.toggleIsLoading();
       });
   }
-
-// ___________________________________________________________________
 
   openExpenseModal() {
     useModal({
@@ -95,8 +87,6 @@ export class ExpensePage extends Component {
     })
   }
 
-// ___________________________________________________________________
-
   loadAllTransactions = () => {
     if (this.state.user?.uid) {
       this.toggleIsLoading();
@@ -115,8 +105,6 @@ export class ExpensePage extends Component {
         });
       }
     }
-
-// ___________________________________________________________________
 
   deleteTransaction ({id}) {
     useModal({
@@ -144,39 +132,36 @@ export class ExpensePage extends Component {
     })
   }
   
-// ___________________________________________________________________
 
-filterExpense = () => {
-  if (this.state.user?.uid) {
-    this.toggleIsLoading();
-    getExpenseApi(this.state.user.uid)
-      .then(({ data }) => {
-        this.setState({
-          ...this.state,
-          arrFilter: data ? mapResponseApiData(data) : [],
-          transactions: mapResponseApiData(data).filter(item => item.sum < 1000)
+// filterExpense = () => {
+//   if (this.state.user?.uid) {
+//     this.toggleIsLoading();
+//     getExpenseApi(this.state.user.uid)
+//       .then(({ data }) => {
+//         this.setState({
+//           ...this.state,
+//           arrFilter: data ? mapResponseApiData(data) : [],
+//           transactions: mapResponseApiData(data).filter(item => item.sum < 1000)
           // transactions: mapResponseApiData(data).filter(item => item.date == new Date())
           
           
-        }); 
-      })
-      .catch(({ message }) => {
-        useToastNotification({ message });
-      })
-      .finally(() => {
-        this.toggleIsLoading();
+      //   }); 
+      // })
+      // .catch(({ message }) => {
+      //   useToastNotification({ message });
+      // })
+      // .finally(() => {
+      //   this.toggleIsLoading();
         // console.log(this.state.arrFilter);
-        const today = new Date().valueOf();
-        const selectedDay = new Date(this.state.arrFilter[2].date).valueOf()
-        console.log(today, selectedDay, today < selectedDay);
+        // const today = new Date().valueOf();
+        // const selectedDay = new Date(this.state.arrFilter[2].date).valueOf()
+        // console.log(today, selectedDay, today < selectedDay);
         // console.log(this.state.transactions);
-        console.log(typeof(this.state.date), this.state.date);
+//         console.log(typeof(this.state.date), this.state.date);
         
-      });
-    }
-}
-
-// ___________________________________________________________________
+//       });
+//     }
+// }
 
   onClick = ({target}) => {
     const logOut = target.closest('.logout');
@@ -214,20 +199,17 @@ filterExpense = () => {
     }
   }
 
-  onFilter = ({ target }) => {
+  onFilterCategories = ({ target }) => {
     const field = target.closest('.filter-categories');
-    console.log(field, field.value)
     if (this.state.user?.uid) {
       this.toggleIsLoading();
       getExpenseApi(this.state.user.uid)
         .then(({ data }) => {
           this.setState({
             ...this.state,
-            arrFilter: data ? mapResponseApiData(data) : [],
             // transactions: mapResponseApiData(data).filter(item => item.sum < 1000)
             // transactions: mapResponseApiData(data).filter(item => item.date == new Date())
             transactions: mapResponseApiData(data).filter(item => item.categories == field.value)
-            
           }); 
         })
         .catch(({ message }) => {
@@ -237,25 +219,21 @@ filterExpense = () => {
           this.toggleIsLoading();
           // console.log(this.state.arrFilter);
           // console.log(typeof(this.state.arrFilter[1].date), this.state.arrFilter[1].date);
-          // console.log(this.state.transactions);
-          // console.log(typeof(this.state.date), this.state.date);
-          
         });
-      }
+    }
   }
-
 // ___________________________________________________________________
 
   componentDidMount(){
     this.setUser();
     this.loadAllTransactions();
     this.addEventListener('click', this.onClick);
-    // this.addEventListener("change", this.onFilter);
+    // this.addEventListener("change", this.onFilterCategories);
   }
 
   componentWillUnmount() {
     this.removeEventListener('click', this.onClick)
-    // this.removeEventListener("change", this.onFilter);
+    // this.removeEventListener("change", this.onFilterCategories);
   }
 }
 

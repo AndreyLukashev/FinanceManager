@@ -10,10 +10,10 @@ export class TotalBalance extends Component {
     super();
     this.template = template();
     this.state = {
-      arrProfTotalBalance: [],
+      isLoading: false,
       profTotalBalance: 0,
-      arrExpTotalBalance: [],
       expTotalBalance: 0,
+      filterBalance: 0,
       totalBalance: 0,
     };
   }
@@ -40,7 +40,6 @@ export class TotalBalance extends Component {
         .then(({ data }) => {
           this.setState({
             ...this.state,
-            arrProfTotalBalance: data ? mapResponseApiData(data) : [],
             profTotalBalance: mapResponseApiData(data).reduce((prev, current) => (prev += Number(current.sum)), 0),
           }); 
         })
@@ -59,7 +58,6 @@ export class TotalBalance extends Component {
           .then(({ data }) => {
             this.setState({
               ...this.state,
-              arrExpTotalBalance: data ? mapResponseApiData(data) : [],
               expTotalBalance: mapResponseApiData(data).reduce((prev, current) => (prev += Number(current.sum)), 0),
             }); 
           })
@@ -79,44 +77,15 @@ export class TotalBalance extends Component {
       })
     };
 
-  // onFilter = ({ target }) => {
-  //   const field = target.closest('.filter-categories');
-  //   console.log(field, field.value)
-  //   if (this.state.user?.uid) {
-  //     this.toggleIsLoading();
-  //     getExpenseApi(this.state.user.uid)
-  //       .then(({ data }) => {
-  //         this.setState({
-  //           ...this.state,
-  //           arrExpBalance: data ? mapResponseApiData(data) : [],
-            // transactions: mapResponseApiData(data).filter(item => item.sum < 1000)
-            // transactions: mapResponseApiData(data).filter(item => item.date == new Date())
-        //     transactions: mapResponseApiData(data).filter(item => item.categories == field.value)
-        //     expBalance:
-        //   }); 
-        // })
-        // .catch(({ message }) => {
-        //   useToastNotification({ message });
-        // })
-        // .finally(() => {
-        //   this.toggleIsLoading();
-          // console.log(this.state.arrFilter);
-          // console.log(typeof(this.state.arrFilter[1].date), this.state.arrFilter[1].date);
-          // console.log(this.state.transactions);
-          // console.log(typeof(this.state.date), this.state.date);
-          
-  //       });
-  //     }
-  // }
-
+   
   componentDidMount() {
     this.setUser();
     this.countBalance();
-    // document.addEventListener("change", this.onFilter);
+    // document.addEventListener("change", this.onFilterBalance);
   }
 
   componentWillUnmount() {
-    // document.removeEventListener("change", this.onFilter);
+    // document.removeEventListener("change", this.onFilterBalance);
   }
 }
 
