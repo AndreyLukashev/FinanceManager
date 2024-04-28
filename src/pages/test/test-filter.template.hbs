@@ -4,10 +4,10 @@
             <p class="min-w-32 border-slate-900 p-1 border-r-2">{{filterTitle}}</p>
             <p class="border-slate-900 p-1">{{filterBalance}}</p>
         </div>
-        <div>
+        <div class="border-2 border-slate-900 rounded bg-amber-100">
             <label class="w-full">
                 <p class="text-sm text-black">Фильтр по категории расходов</p>
-                <select name="categories" class="filter-balance p-2 w-full border rounded">
+                <select name="categories" class="filter-balance p-2 w-full border-t border-slate-900 bg-amber-100">
                     <option>Выберите категорию</option>
                     <option>Жилье</option>
                     <option>Здоровье</option>
@@ -19,4 +19,37 @@
                 </select>
              </label>
         </div>
-    </div>
+
+        <div class=" border-2 border-slate-900 bg-amber-100 rounded">
+            <p>Выбрать период</p>
+
+            <div>
+                <input class="filter-day" type="radio" name="date" value="day" />
+                <label for="day">День</label>
+            </div>
+
+            <div>
+                <input class="filter-week" type="radio" name="date" value="week" />
+                <label for="week">Неделя</label>
+            </div>
+
+            <div>
+                <input class="filter-month" type="radio" name="date" value="month" />
+                <label for="month">Месяц</label>
+            </div>
+
+            <div>
+                <input class="filter-year" type="radio" name="date" value="year" />
+                <label for="year">Год</label>
+            </div>
+        </div>
+
+        <div class="border-2 border-slate-900 rounded bg-amber-100">
+            <label class="w-full">
+                <p class="text-sm text-black">Выбор периода</p>
+                <input class="start-period" value="start-period" type="date">
+                <input class="end-period" value="end-period" type="date">
+             </label>
+        </div>
+
+</div>

@@ -33,7 +33,7 @@ export class FilterExpenseBalance extends Component {
   }
 
   onFilterBalance = ({ target }) => {
-    const field = target.closest('.filter-balance');
+    const field = target.closest('.filter-balance-expense');
     if (this.state.user?.uid) {
       getExpenseApi(this.state.user.uid)
         .then(({ data }) => {
