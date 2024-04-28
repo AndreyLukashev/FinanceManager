@@ -40,10 +40,10 @@
         <div class="col-span-4">
             {{#each transactions}}
                 <div data-id="{{this.id}}" class="m-1 bg-indigo-200 flex relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
-                    <p class="min-w-32 border-r-2 border-slate-900 p-1">{{categories}}</p>
-                    <p class="min-w-32 border-r-2 border-slate-900 p-1">{{sum}}</p>
-                    <p class="min-w-32 border-r-2 border-slate-900 p-1">{{date}}</p>
-                    <p class="p-1">{{description}}</p>
+                    <p class="min-w-32 border-r-2 border-slate-900 p-1 font-medium">{{categories}}</p>
+                    <p class="min-w-32 border-r-2 border-slate-900 p-1 font-medium">{{sum}}</p>
+                    <p class="min-w-32 border-r-2 border-slate-900 p-1 font-medium">{{date}}</p>
+                    <p class="p-1 font-medium">{{description}}</p>
                     <button data-id="{{this.id}}" class="delete-transaction absolute top-0 right-0 hover:text-red-500 bg-transparent rounded-lg text-lg w-8 h-8 ms-auto inline-flex justify-center items-center">
                         <div class="icon-circle-x"></div>
                     </button>
