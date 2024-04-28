@@ -1,22 +1,23 @@
- <div class="min-w-80">
-        <p>Сумма расхода по фильтру</p>
-        <div class="flex max-w-80 m-1 bg-amber-100 relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
-            <p class="min-w-32 border-slate-900 p-1 border-r-2">{{filterTitle}}</p>
-            <p class="border-slate-900 p-1">{{filterBalance}}</p>
-        </div>
-        <div>
-            <label class="w-full">
-                <p class="text-sm text-black">Фильтр по категории расходов</p>
-                <select name="categories" class="filter-balance-expense p-2 w-full border rounded">
-                    <option>Выберите категорию</option>
-                    <option>Жилье</option>
-                    <option>Здоровье</option>
-                    <option>Продукты</option>
-                    <option>Досуг</option>
-                    <option>Образование</option>
-                    <option>Подарки</option>
-                    <option>Транспорт</option>
-                </select>
-             </label>
-        </div>
+ <div class="min-w-96">
+    <p class="text-gray-950 text-xl font-semibold text-center">Сумма расхода по фильтру</p>
+    <div class="flex  m-1 bg-cyan-400 relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
+        <p class="min-w-36 border-slate-900 p-1 border-r-2 text-lg font-medium">{{filterTitle}}:</p>
+        <p class="border-slate-900 p-1 text-lg font-medium">{{filterBalance}}</p>
     </div>
+
+    <div class="p-1">
+        <label>
+            <p class="text-gray-950 text-xl font-semibold text-center">Фильтр по категории расходов</p>
+            <select name="categories" class="filter-balance-expense p-2 w-full rounded border-2 border-slate-900 bg-cyan-500 text-gray-950 text-xl font-semibold text-center">
+                <option>Выберите категорию</option>
+                <option>Жилье</option>
+                <option>Здоровье</option>
+                <option>Продукты</option>
+                <option>Досуг</option>
+                <option>Образование</option>
+                <option>Подарки</option>
+                <option>Транспорт</option>
+            </select>
+        </label>
+    </div>
+</div>
