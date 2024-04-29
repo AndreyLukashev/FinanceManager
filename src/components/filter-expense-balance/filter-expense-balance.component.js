@@ -106,12 +106,10 @@ export class FilterExpenseBalance extends Component {
   componentDidMount() {
     this.setUser();
     this.loadAllTransactions();
-    this.addEventListener("change", this.onFilterBalance);
     this.addEventListener('click', this.onClick);
   }
 
   componentWillUnmount() {
-    this.removeEventListener("change", this.onFilterBalance);
     this.removeEventListener('click', this.onClick)
   }
 }

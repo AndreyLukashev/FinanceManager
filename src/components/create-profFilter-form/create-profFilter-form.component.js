@@ -1,7 +1,7 @@
 import { Component } from "../../core/Component";
-import template from "./create-expFilter-form.template.hbs";
+import template from "./create-profFilter-form.template.hbs";
 
-export class CreateExpFilterForm extends Component {
+export class CreateProfFilterForm extends Component {
     constructor() {
         super();
 
@@ -30,4 +30,4 @@ export class CreateExpFilterForm extends Component {
       }
 }
 
-customElements.define('ui-create-expfilter-form', CreateExpFilterForm);
+customElements.define('ui-create-proffilter-form', CreateProfFilterForm);

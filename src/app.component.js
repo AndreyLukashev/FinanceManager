@@ -23,6 +23,7 @@ import "./components/modal/modal.component";
 import "./components/create-profit-form/create-profit-form.component";
 import "./components/create-expense-form/create-expense-form.component";
 import "./components/create-expFilter-form/create-expFilter-form.component";
+import "./components/create-profFilter-form/create-profFilter-form.component";
 import "./components/total-balance/total-balance.component";
 import "./components/filter-profit-balance/filter-profit-balance.component";
 import './components/filter-expense-balance/filter-expense-balance.component';

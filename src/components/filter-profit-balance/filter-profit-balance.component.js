@@ -1,9 +1,11 @@
-import {getProfitApi } from "../../api/transactions";
 import { Component } from "../../core/Component";
-import { useToastNotification } from "../../hooks/useToastNotification";
-import { useUserStore } from "../../hooks/useUserStore";
-import { mapResponseApiData } from "../../utils/api";
 import template from "./filter-profit-balance.template.hbs";
+import { useUserStore } from "../../hooks/useUserStore";
+import {getProfitApi } from "../../api/transactions";
+import { useToastNotification } from "../../hooks/useToastNotification";
+import { mapResponseApiData } from "../../utils/api";
+import { useModal } from "../../hooks/useModal";
+import { extractFormData } from "../../utils/extractFormData";
 
 export class FilterProfitBalance extends Component {
   constructor() {
@@ -11,9 +13,9 @@ export class FilterProfitBalance extends Component {
     this.template = template();
     this.state = {
       isLoading: false,
-    //   arrExpFilterBalance: [],
+      user: null,
+      transactions: [],
       filterBalance: 0,
-      filterTitle: "Фильтр",
     };
   }
 
@@ -32,35 +34,84 @@ export class FilterProfitBalance extends Component {
     });
   }
 
-  onFilterBalance = ({ target }) => {
-    const field = target.closest('.filter-balance-profit');
+  loadAllTransactions = () => {
     if (this.state.user?.uid) {
-      getProfitApi(this.state.user.uid)
-        .then(({ data }) => {
-          this.setState({
-            ...this.state,
-            filterBalance: mapResponseApiData(data).filter(item => item.categories === field.value).reduce((prev, current) => (prev += Number(current.sum)), 0),
-            filterTitle: field.value,
+      this.toggleIsLoading();
+        getProfitApi(this.state.user.uid)
+          .then(({ data }) => {
+            this.setState({
+              ...this.state,
+              transactions: mapResponseApiData(data).sort((a, b) => a.date < b.date ? 1 : -1),
+            });
+          })
+          .catch(({ message }) => {
+            useToastNotification({ message });
+          })
+          .finally(() => {
+            this.toggleIsLoading();
           });
-          
-        })
-        .catch(({ message }) => {
-          useToastNotification({ message });
-        })
-        .finally(() => {
-          this.toggleIsLoading();
-        });
+      }
     }
-  }
 
+    openFilterModal() {
+      useModal({
+        isOpen: true,
+        title: "Фильтр",
+        template: 'ui-create-proffilter-form',
+        onSuccess: (modal) => {
+          const form = modal.querySelector(".create-proffilter-form");
+          const formData = extractFormData(form);
+          this.toggleIsLoading();
+          getProfitApi(this.state.user.uid)
+          .then(({ data }) => {
+          const startDate = formData.startdate;
+          const endDate = formData.enddate;
+          const strDate = Number(startDate.replace(/-/g, ''));
+          const enDate = Number(endDate.replace(/-/g, ''));
+          const transactions1 = mapResponseApiData(data).filter(item => item.categories === formData.categories);
+          const transactions2 = transactions1.filter(item =>  Number(item.date.replace(/-/g, '')) >= strDate);
+          const transactions3 = transactions2.filter(item =>  Number(item.date.replace(/-/g, '')) <= enDate);
+          
+            this.setState({
+              ...this.state,
+              transactions: transactions3,
+              filterBalance: transactions3.reduce((prev, current) => (prev += Number(current.sum)), 0),
+            });
+            
+          })
+          .catch(({ message }) => {
+            useToastNotification({ message });
+          })
+          .finally(() => {
+            this.toggleIsLoading();
+          });
+        }
+      })
+    }
+  
+    onClick = ({target}) => {
+      const filterBtn = target.closest('.filterbtn');
+      const filterResetBtn = target.closest('.filterbtn-reset');
+      
+      if(filterBtn){
+        this.openFilterModal()
+      }
 
+      if(filterResetBtn){
+        this.loadAllTransactions()
+      }
+  
+    }
+  
   componentDidMount() {
     this.setUser();
-    this.addEventListener("change", this.onFilterBalance);
+    this.loadAllTransactions();
+    this.addEventListener('click', this.onClick);
+    
   }
 
   componentWillUnmount() {
-    this.removeEventListener("change", this.onFilterBalance);
+    
   }
 }
 
