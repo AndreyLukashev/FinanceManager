@@ -1,15 +1,15 @@
 import { Component } from "../../core/Component";
 import template from "./profit.template.hbs";
-import { createProfitApi, deleteProfitApi, getProfitApi} from "../../api/transactions";
 import { useUserStore } from "../../hooks/useUserStore";
-import { useModal } from "../../hooks/useModal";
-import { extractFormData } from "../../utils/extractFormData";
+import { createExpenseApi, deleteExpenseApi, getExpenseApi} from "../../api/transactions";
 import { useToastNotification } from "../../hooks/useToastNotification";
+import { mapResponseApiData } from "../../utils/api";
+import { authService } from "../../services/Auth";
+import { TOAST_TYPE } from "../../constants/toast";
 import { useNavigate } from "../../hooks/useNavigate";
 import { ROUTES } from "../../constants/routes";
-import { TOAST_TYPE } from "../../constants/toast";
-import { authService } from "../../services/Auth";
-import { mapResponseApiData } from "../../utils/api";
+import { useModal } from "../../hooks/useModal";
+import { extractFormData } from "../../utils/extractFormData";
 
 export class ProfitPage extends Component {
   constructor() {
@@ -17,8 +17,8 @@ export class ProfitPage extends Component {
     this.template = template();
     this.state = {
       user: null,
-      transactions: [],
       isLoading: false,
+      transactions: [],
     };
   }
 
@@ -35,6 +35,25 @@ export class ProfitPage extends Component {
       ...this.state,
       user: getUser(),
     });
+  }
+
+  loadAllTransactions = () => {
+    if (this.state.user?.uid) {
+      this.toggleIsLoading();
+      getProfitApi(this.state.user.uid)
+        .then(({ data }) => {
+          this.setState({
+            ...this.state,
+            transactions: data ? mapResponseApiData(data) : [],
+          });
+        })
+        .catch(({ message }) => {
+          useToastNotification({ message });
+        })
+        .finally(() => {
+          this.toggleIsLoading();
+        });
+    }
   }
 
   logOut = () => {
@@ -82,30 +101,11 @@ export class ProfitPage extends Component {
     })
   }
 
-  loadAllTransactions = () => {
-    if (this.state.user?.uid) {
-      this.toggleIsLoading();
-      getProfitApi(this.state.user.uid)
-        .then(({ data }) => {
-          this.setState({
-            ...this.state,
-            transactions: data ? mapResponseApiData(data) : [],
-          });
-        })
-        .catch(({ message }) => {
-          useToastNotification({ message });
-        })
-        .finally(() => {
-          this.toggleIsLoading();
-        });
-    }
-  }
-
   deleteTransaction ({id}) {
     useModal({
       isOpen: true,
-      title: 'Delete transaction',
-      confirmation: `Do you really want to delete transaction`,
+      title: 'Удаление выбранный доход',
+      confirmation: `Вы действительно хотите удалить этот доход`,
       successCaption: "Delete",
       onSuccess: () => {
           this.toggleIsLoading();
@@ -127,12 +127,11 @@ export class ProfitPage extends Component {
     })
   }
 
-
   onClick = ({target}) => {
     const logOut = target.closest('.logout');
     const workPage = target.closest('.work-page');
-    const expensePage = target.closest('.expense-page');
     const addProfit = target.closest('.create-profit');
+    const expensePage = target.closest('.expense-page');
     const dltTransaction = target.closest('.delete-transaction');
 
     if(logOut){
@@ -143,12 +142,12 @@ export class ProfitPage extends Component {
       useNavigate(`${ROUTES.work}`);
     }
 
-    if(expensePage){
-      useNavigate(`${ROUTES.expense}`);
-    }
-
     if(addProfit){
       this.openProfitModal();
+    }
+
+    if(expensePage){
+      useNavigate(`${ROUTES.expense}`);
     }
 
     if(dltTransaction){

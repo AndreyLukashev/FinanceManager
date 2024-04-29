@@ -104,7 +104,7 @@ export class ExpensePage extends Component {
   deleteTransaction ({id}) {
     useModal({
       isOpen: true,
-      title: 'Удаление расхода',
+      title: 'Удалить выбранный расход',
       confirmation: `Вы действительно хотите удалить этот расход`,
       successCaption: "Delete",
       onSuccess: () => {
