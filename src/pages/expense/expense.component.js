@@ -1,18 +1,15 @@
 import { Component } from "../../core/Component";
 import template from "./expense.template.hbs";
-import { createExpenseApi, deleteExpenseApi, getExpenseApi} from "../../api/transactions";
 import { useUserStore } from "../../hooks/useUserStore";
-import { useModal } from "../../hooks/useModal";
-import { extractFormData } from "../../utils/extractFormData";
+import { createExpenseApi, deleteExpenseApi, getExpenseApi} from "../../api/transactions";
 import { useToastNotification } from "../../hooks/useToastNotification";
+import { mapResponseApiData } from "../../utils/api";
+import { authService } from "../../services/Auth";
+import { TOAST_TYPE } from "../../constants/toast";
 import { useNavigate } from "../../hooks/useNavigate";
 import { ROUTES } from "../../constants/routes";
-import { TOAST_TYPE } from "../../constants/toast";
-import { authService } from "../../services/Auth";
-import { mapResponseApiData } from "../../utils/api";
-import { eventEmitter } from "../../core/EventEmitter";
-
-// ___________________________________________________________________
+import { useModal } from "../../hooks/useModal";
+import { extractFormData } from "../../utils/extractFormData";
 
 export class ExpensePage extends Component {
   constructor() {
@@ -20,10 +17,8 @@ export class ExpensePage extends Component {
     this.template = template();
     this.state = {
       user: null,
-      transactions: [],
       isLoading: false,
-      arrFilter: [],
-      date: new Date()
+      transactions: [],
     }
 }
 
@@ -41,6 +36,25 @@ export class ExpensePage extends Component {
       user: getUser(),
     });
   }
+
+  loadAllTransactions = () => {
+    if (this.state.user?.uid) {
+      this.toggleIsLoading();
+        getExpenseApi(this.state.user.uid)
+          .then(({ data }) => {
+            this.setState({
+              ...this.state,
+              transactions: data ? mapResponseApiData(data) : [],
+            });
+          })
+          .catch(({ message }) => {
+            useToastNotification({ message });
+          })
+          .finally(() => {
+            this.toggleIsLoading();
+          });
+      }
+    }
 
   logOut = () => {
     this.toggleIsLoading();
@@ -87,30 +101,11 @@ export class ExpensePage extends Component {
     })
   }
 
-  loadAllTransactions = () => {
-    if (this.state.user?.uid) {
-      this.toggleIsLoading();
-      getExpenseApi(this.state.user.uid)
-        .then(({ data }) => {
-          this.setState({
-            ...this.state,
-            transactions: data ? mapResponseApiData(data) : [],
-          });
-        })
-        .catch(({ message }) => {
-          useToastNotification({ message });
-        })
-        .finally(() => {
-          this.toggleIsLoading();
-        });
-      }
-    }
-
   deleteTransaction ({id}) {
     useModal({
       isOpen: true,
-      title: 'Delete transaction',
-      confirmation: `Do you really want to delete transaction`,
+      title: 'Удаление расхода',
+      confirmation: `Вы действительно хотите удалить этот расход`,
       successCaption: "Delete",
       onSuccess: () => {
           this.toggleIsLoading();
@@ -132,49 +127,12 @@ export class ExpensePage extends Component {
     })
   }
   
-
-// filterExpense = () => {
-//   if (this.state.user?.uid) {
-//     this.toggleIsLoading();
-//     getExpenseApi(this.state.user.uid)
-//       .then(({ data }) => {
-//         this.setState({
-//           ...this.state,
-//           arrFilter: data ? mapResponseApiData(data) : [],
-//           transactions: mapResponseApiData(data).filter(item => item.sum < 1000)
-          // transactions: mapResponseApiData(data).filter(item => item.date == new Date())
-          
-          
-      //   }); 
-      // })
-      // .catch(({ message }) => {
-      //   useToastNotification({ message });
-      // })
-      // .finally(() => {
-      //   this.toggleIsLoading();
-        // console.log(this.state.arrFilter);
-        // const today = new Date().valueOf();
-        // const selectedDay = new Date(this.state.arrFilter[2].date).valueOf()
-        // console.log(today, selectedDay, today < selectedDay);
-        // console.log(this.state.transactions);
-//         console.log(typeof(this.state.date), this.state.date);
-        
-//       });
-//     }
-// }
-
   onClick = ({target}) => {
     const logOut = target.closest('.logout');
     const workPage = target.closest('.work-page');
-    const profitPage = target.closest('.profit-page');
     const addExpense = target.closest('.create-expense');
+    const profitPage = target.closest('.profit-page');
     const dltTransaction = target.closest('.delete-transaction');
-    const filterbtn = target.closest('.filter');
-
-    if(filterbtn){
-      this.filterExpense()
-    }
-
 
     if(logOut){
       this.logOut();
@@ -184,12 +142,12 @@ export class ExpensePage extends Component {
       useNavigate(`${ROUTES.work}`);
     }
 
-    if(profitPage){
-      useNavigate(`${ROUTES.profit}`);
-    }
-    
     if(addExpense){
       this.openExpenseModal();
+    }
+
+    if(profitPage){
+      useNavigate(`${ROUTES.profit}`);
     }
 
     if(dltTransaction){
@@ -199,41 +157,14 @@ export class ExpensePage extends Component {
     }
   }
 
-  onFilterCategories = ({ target }) => {
-    const field = target.closest('.filter-categories');
-    if (this.state.user?.uid) {
-      this.toggleIsLoading();
-      getExpenseApi(this.state.user.uid)
-        .then(({ data }) => {
-          this.setState({
-            ...this.state,
-            // transactions: mapResponseApiData(data).filter(item => item.sum < 1000)
-            // transactions: mapResponseApiData(data).filter(item => item.date == new Date())
-            transactions: mapResponseApiData(data).filter(item => item.categories == field.value)
-          }); 
-        })
-        .catch(({ message }) => {
-          useToastNotification({ message });
-        })
-        .finally(() => {
-          this.toggleIsLoading();
-          // console.log(this.state.arrFilter);
-          // console.log(typeof(this.state.arrFilter[1].date), this.state.arrFilter[1].date);
-        });
-    }
-  }
-// ___________________________________________________________________
-
   componentDidMount(){
     this.setUser();
     this.loadAllTransactions();
     this.addEventListener('click', this.onClick);
-    // this.addEventListener("change", this.onFilterCategories);
   }
 
   componentWillUnmount() {
     this.removeEventListener('click', this.onClick)
-    // this.removeEventListener("change", this.onFilterCategories);
   }
 }
 
