@@ -1,7 +1,7 @@
 import { Component } from "../../core/Component";
 import template from "./profit.template.hbs";
 import { useUserStore } from "../../hooks/useUserStore";
-import { createExpenseApi, deleteExpenseApi, getExpenseApi} from "../../api/transactions";
+import { createProfitApi, deleteProfitApi, getProfitApi} from "../../api/transactions";
 import { useToastNotification } from "../../hooks/useToastNotification";
 import { mapResponseApiData } from "../../utils/api";
 import { authService } from "../../services/Auth";
