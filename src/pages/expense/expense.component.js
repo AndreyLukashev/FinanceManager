@@ -3,13 +3,13 @@ import template from "./expense.template.hbs";
 import { useUserStore } from "../../hooks/useUserStore";
 import { createExpenseApi, deleteExpenseApi, getExpenseApi} from "../../api/transactions";
 import { useToastNotification } from "../../hooks/useToastNotification";
-import { mapResponseApiData } from "../../utils/api";
 import { authService } from "../../services/Auth";
 import { TOAST_TYPE } from "../../constants/toast";
 import { useNavigate } from "../../hooks/useNavigate";
 import { ROUTES } from "../../constants/routes";
 import { useModal } from "../../hooks/useModal";
 import { extractFormData } from "../../utils/extractFormData";
+import { mapResponseApiData } from "../../utils/api";
 
 export class ExpensePage extends Component {
   constructor() {
@@ -18,7 +18,6 @@ export class ExpensePage extends Component {
     this.state = {
       user: null,
       isLoading: false,
-      transactions: [],
     }
 }
 
@@ -36,25 +35,6 @@ export class ExpensePage extends Component {
       user: getUser(),
     });
   }
-
-  loadAllTransactions = () => {
-    if (this.state.user?.uid) {
-      this.toggleIsLoading();
-        getExpenseApi(this.state.user.uid)
-          .then(({ data }) => {
-            this.setState({
-              ...this.state,
-              transactions: data ? mapResponseApiData(data) : [],
-            });
-          })
-          .catch(({ message }) => {
-            useToastNotification({ message });
-          })
-          .finally(() => {
-            this.toggleIsLoading();
-          });
-      }
-    }
 
   logOut = () => {
     this.toggleIsLoading();
@@ -100,6 +80,25 @@ export class ExpensePage extends Component {
       },
     })
   }
+
+  loadAllTransactions = () => {
+    if (this.state.user?.uid) {
+      this.toggleIsLoading();
+        getExpenseApi(this.state.user.uid)
+          .then(({ data }) => {
+            this.setState({
+              ...this.state,
+              transactions: mapResponseApiData(data).sort((a, b) => a.date < b.date ? 1 : -1),
+            });
+          })
+          .catch(({ message }) => {
+            useToastNotification({ message });
+          })
+          .finally(() => {
+            this.toggleIsLoading();
+          });
+      }
+    }
 
   deleteTransaction ({id}) {
     useModal({
@@ -159,7 +158,7 @@ export class ExpensePage extends Component {
 
   componentDidMount(){
     this.setUser();
-    this.loadAllTransactions();
+    // this.loadAllTransactions();
     this.addEventListener('click', this.onClick);
   }
 
