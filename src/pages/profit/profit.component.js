@@ -18,7 +18,6 @@ export class ProfitPage extends Component {
     this.state = {
       user: null,
       isLoading: false,
-      transactions: [],
     };
   }
 
@@ -35,6 +34,24 @@ export class ProfitPage extends Component {
       ...this.state,
       user: getUser(),
     });
+  }
+
+  logOut = () => {
+    this.toggleIsLoading();
+    const { setUser } = useUserStore();
+    authService
+      .logOut()
+      .then(() => {
+        setUser(null);
+        useToastNotification({ type: TOAST_TYPE.success, message: "Success!" });
+        useNavigate(ROUTES.signIn);
+      })
+      .catch(({ message }) => {
+        useToastNotification({ message });
+      })
+      .finally(() => {
+        this.toggleIsLoading();
+      });
   }
 
   loadAllTransactions = () => {
@@ -54,24 +71,6 @@ export class ProfitPage extends Component {
           this.toggleIsLoading();
         });
     }
-  }
-
-  logOut = () => {
-    this.toggleIsLoading();
-    const { setUser } = useUserStore();
-    authService
-      .logOut()
-      .then(() => {
-        setUser(null);
-        useToastNotification({ type: TOAST_TYPE.success, message: "Success!" });
-        useNavigate(ROUTES.signIn);
-      })
-      .catch(({ message }) => {
-        useToastNotification({ message });
-      })
-      .finally(() => {
-        this.toggleIsLoading();
-      });
   }
 
   openProfitModal() {
@@ -159,7 +158,6 @@ export class ProfitPage extends Component {
 
   componentDidMount() {
     this.setUser();
-    this.loadAllTransactions();
     this.addEventListener('click', this.onClick);
   }
 

@@ -19,7 +19,7 @@ export class ExpensePage extends Component {
       user: null,
       isLoading: false,
     }
-}
+  }
 
   toggleIsLoading = () => {
     this.setState({
@@ -54,6 +54,25 @@ export class ExpensePage extends Component {
       });
   }
 
+  loadAllTransactions = () => {
+    if (this.state.user?.uid) {
+      this.toggleIsLoading();
+        getExpenseApi(this.state.user.uid)
+          .then(({ data }) => {
+            this.setState({
+              ...this.state,
+              transactions: mapResponseApiData(data).sort((a, b) => a.date < b.date ? 1 : -1),
+            });
+          })
+          .catch(({ message }) => {
+            useToastNotification({ message });
+          })
+          .finally(() => {
+            this.toggleIsLoading();
+          });
+      }
+    }
+
   openExpenseModal() {
     useModal({
       isOpen: true,
@@ -81,24 +100,7 @@ export class ExpensePage extends Component {
     })
   }
 
-  loadAllTransactions = () => {
-    if (this.state.user?.uid) {
-      this.toggleIsLoading();
-        getExpenseApi(this.state.user.uid)
-          .then(({ data }) => {
-            this.setState({
-              ...this.state,
-              transactions: mapResponseApiData(data).sort((a, b) => a.date < b.date ? 1 : -1),
-            });
-          })
-          .catch(({ message }) => {
-            useToastNotification({ message });
-          })
-          .finally(() => {
-            this.toggleIsLoading();
-          });
-      }
-    }
+  
 
   deleteTransaction ({id}) {
     useModal({
@@ -158,7 +160,6 @@ export class ExpensePage extends Component {
 
   componentDidMount(){
     this.setUser();
-    // this.loadAllTransactions();
     this.addEventListener('click', this.onClick);
   }
 

@@ -6,5 +6,4 @@ export const ROUTES = {
     profit: "/profit",
     expense: "/expense",
     notFound: "/404",
-    test: "/test"
 }
