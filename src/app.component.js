@@ -26,9 +26,6 @@ import "./components/total-balance/total-balance.component";
 import "./components/filter-profit-balance/filter-profit-balance.component";
 import './components/filter-expense-balance/filter-expense-balance.component';
 
-import "./pages/test/test.component";
-import "./pages/test/test-filter.component";
-
 export class App extends Component {
   constructor() {
     super();
