@@ -8,7 +8,7 @@ export class CreateProfFilterForm extends Component {
         this.state = {
             categories: "",
             startdate: null,
-            endtdate: null,
+            enddate: null,
         };
         this.template = template();
     }
