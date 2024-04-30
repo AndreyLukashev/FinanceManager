@@ -4,7 +4,9 @@
         <div class="min-w-96">
             <p class="text-gray-950 text-xl font-semibold text-center">Сумма расходов по фильтру</p>
                 <div class="flex  m-1 bg-cyan-400 relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
-                    <p class="min-w-36 border-slate-900 p-1 border-r-2 text-lg font-medium">Расход:</p>
+                    <p class="border-slate-900 p-1 text-lg font-medium">В период с {{startDate}} по {{endDate}} ваши расходы на категорию {{categories}} составили:</p>
+                </div> 
+                <div class="flex justify-center  m-1 bg-cyan-400 relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
                     <p class="border-slate-900 p-1 text-lg font-medium">{{filterBalance}}</p>
                 </div>  
             </div> 

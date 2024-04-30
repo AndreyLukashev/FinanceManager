@@ -16,6 +16,9 @@ export class FilterProfitBalance extends Component {
       user: null,
       transactions: [],
       filterBalance: 0,
+      startDate: "______________",
+      endDate: "______________",
+      categories: "______________",
     };
   }
 
@@ -42,6 +45,10 @@ export class FilterProfitBalance extends Component {
             this.setState({
               ...this.state,
               transactions: mapResponseApiData(data).sort((a, b) => a.date < b.date ? 1 : -1),
+              filterBalance: 0,
+              startDate: "______________",
+              endDate: "______________",
+              categories: "______________",
             });
           })
           .catch(({ message }) => {
@@ -76,6 +83,9 @@ export class FilterProfitBalance extends Component {
               ...this.state,
               transactions: transactions3,
               filterBalance: transactions3.reduce((prev, current) => (prev += Number(current.sum)), 0),
+              startDate: startDate,
+              endDate: endDate,
+              categories: formData.categories.toLowerCase(),
             });
             
           })

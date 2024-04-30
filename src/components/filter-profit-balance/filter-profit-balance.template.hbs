@@ -4,14 +4,16 @@
         <div class="min-w-96">
             <p class="text-gray-950 text-xl font-semibold text-center">Сумма доходов по фильтру</p>
                 <div class="flex  m-1 bg-cyan-400 relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
-                    <p class="min-w-36 border-slate-900 p-1 border-r-2 text-lg font-medium">Доход:</p>
+                    <p class="border-slate-900 p-1 text-lg font-medium">В период с {{startDate}} по {{endDate}} ваши доходы по категории {{categories}} составили:</p>
+                </div> 
+                <div class="flex justify-center  m-1 bg-cyan-400 relative board-item border-2 border-slate-900 rounded cursor-pointer transition-shadow hover:shadow-slate-200 hover:shadow-lg">
                     <p class="border-slate-900 p-1 text-lg font-medium">{{filterBalance}}</p>
-                </div>  
-            </div> 
+                </div>   
+        </div> 
     </div>
 
     <div>
-<div class="flex items-center justify-center">
+        <div class="flex items-center justify-center">
             <button class="filterbtn mr-5 min-w-60 max-h-16 px-3.5 py-2.5 border-r-6 border-2 border-slate-900  rounded-md bg-indigo-200 hover:bg-indigo-300 shadow-sm text-gray-950 text-lg font-medium">ФИЛЬТР</button>
             <button class="filterbtn-reset min-w-60 max-h-16 px-3.5 py-2.5 border-r-6 border-2 border-slate-900  rounded-md bg-indigo-200 hover:bg-indigo-300 shadow-sm text-gray-950 text-lg font-medium">СБРОСИТЬ ФИЛЬТР</button>
         </div>
