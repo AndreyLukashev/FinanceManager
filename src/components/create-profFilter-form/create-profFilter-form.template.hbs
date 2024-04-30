@@ -9,15 +9,15 @@
     </select>
   </label>
 
-  <label class="w-full">
-    <p class="text-sm text-black">Дата</p>
-    <input type="date" name="startdate" value="{{startdate}}" class="p-2 w-full border rounded" />
-  </label>
+  <div class="flex justify-around">
+    <label class="min-w-64">
+      <p class="text-sm text-black">Начала периода</p>
+      <input type="date" name="startdate" value="{{startdate}}" class="p-2 w-full border rounded" />
+    </label>
 
-  <label class="w-full">
-    <p class="text-sm text-black">Дата</p>
-    <input type="date" name="enddate" value="{{enddate}}" class="p-2 w-full border rounded" />
-  </label>
-
-  
+    <label class="min-w-64">
+      <p class="text-sm text-black">Конец периода</p>
+      <input type="date" name="enddate" value="{{enddate}}" class="p-2 w-full border rounded" />
+    </label>
+  </div> 
 </form>

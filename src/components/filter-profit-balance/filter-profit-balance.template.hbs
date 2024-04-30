@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div>
+    <div class="w-2/5">
         <p class="text-gray-950 text-xl font-semibold text-center">Список ваших доходов</p>
         
         {{#each transactions}}
@@ -25,7 +25,7 @@
                 <p class="min-w-32 border-r-2 border-slate-900 p-1 font-medium">{{categories}}</p>
                 <p class="min-w-32 border-r-2 border-slate-900 p-1 font-medium">{{sum}}</p>
                 <p class="min-w-32 border-r-2 border-slate-900 p-1 font-medium">{{date}}</p>
-                <p class="min-w-96 p-1 font-medium">{{description}}</p>
+                <p class="min-w-80 p-1 font-medium">{{description}}</p>
                 <button data-id="{{this.id}}" class="delete-transaction absolute top-0 right-0 hover:text-red-500 bg-transparent rounded-lg text-lg w-8 h-8 ms-auto inline-flex justify-center items-center">
                     <div class="icon-circle-x"></div>
                 </button>
